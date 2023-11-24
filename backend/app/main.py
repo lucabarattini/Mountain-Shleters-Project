@@ -6,11 +6,11 @@ as the backend for the project.
 """
 
 from fastapi import FastAPI
-from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from datetime import datetime
 
 from .mymodules.birthdays import return_birthday, print_birthdays_str
+from .mymodules.csv_cleaning import clean_csv
 
 app = FastAPI()
 
@@ -74,3 +74,6 @@ def get_date():
     """
     current_date = datetime.now().isoformat()
     return JSONResponse(content={"date": current_date})
+
+cleaned_df = clean_csv('elencorifugi-alpini.csv')
+print(cleaned_df) 

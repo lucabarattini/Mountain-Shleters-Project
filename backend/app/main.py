@@ -10,8 +10,8 @@ from fastapi.responses import JSONResponse
 from datetime import datetime
 import pandas as pd
 
-from .mymodules.birthdays import return_birthday, print_birthdays_str
-from .mymodules.csv_cleaning import clean_csv
+from mymodules.birthdays import return_birthday, print_birthdays_str
+from mymodules.csv_cleaning import cleancsv1
 
 app = FastAPI()
 
@@ -76,5 +76,5 @@ def get_date():
     current_date = datetime.now().isoformat()
     return JSONResponse(content={"date": current_date})
 
-cleaned_df = clean_csv('elencorifugi-alpini.csv')
-print(cleaned_df) 
+cleaned_df = cleancsv1('/Users/lucabarattini/NEW_REPO_LSPD_BCG/NEW_REPO_LSPD_BCG/backend/app/regpie-RifugiOpenDa_2296-all.csv')
+print(cleaned_df)

@@ -17,9 +17,3 @@ def process_data(file_path):
     df.fillna("---", inplace=True)
 
     return df
-
-# Call the function and store the result in a variable
-processed_df = process_data(file_path)
-
-# Display the modified DataFrame
-print(processed_df)

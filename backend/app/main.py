@@ -14,7 +14,7 @@ from mymodules.birthdays import return_birthday, print_birthdays_str
 from mymodules.csv_cleaning import cleancsv1
 
 app = FastAPI()
-#hgfds
+
 # Dictionary of birthdays
 birthdays_dictionary = {
     'Albert Einstein': '03/14/1879',

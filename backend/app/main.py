@@ -76,11 +76,11 @@ def get_date():
     current_date = datetime.now().isoformat()
     return JSONResponse(content={"date": current_date})
 
-cleaned_df = cleancsv1('/Users/lucabarattini/NEW_REPO_LSPD_BCG/NEW_REPO_LSPD_BCG/backend/app/regpie-RifugiOpenDa_2296-all.csv')
-print(cleaned_df)
+# cleaned_df = cleancsv1('/Users/lucabarattini/NEW_REPO_LSPD_BCG/NEW_REPO_LSPD_BCG/backend/app/regpie-RifugiOpenDa_2296-all.csv')
+# print(cleaned_df)
 
-# Call the function and store the result in a variable
-processed_df = process_data(file_path)
+# # Call the function and store the result in a variable
+# processed_df = process_data(file_path)
 
-# Display the modified DataFrame
-print(processed_df)
+# # Display the modified DataFrame
+# print(processed_df)

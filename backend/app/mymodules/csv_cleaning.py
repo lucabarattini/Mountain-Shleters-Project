@@ -1,35 +1,29 @@
 import pandas as pd
 
-def cleancsv1(file_path):
-    """
-    Cleans the specified CSV file 'egpie-RifugiOpenDa_2296-all.csv' and returns the cleaned DataFrame.
+def cleancsv1(file_path, delimiter=';'):
+    data = pd.read_csv(file_path, delimiter=delimiter)
 
-    Args:
-    file_path (str): The path to the CSV file to be cleaned.
+    # Convert column names to uppercase
+    data.columns = data.columns.str.upper()
 
-    Returns:
-    pandas.DataFrame: The cleaned DataFrame.
-    """
-    # Load the data
-    df = pd.read_csv(file_path, sep=';')
+    # Dropping columns
+    drop_indexes = [0, 1, 4, 5, 8, 9, 40] + list(range(11, 39))
 
-    # Combining ranges and specific columns to drop into a single list
-    columns_to_drop = list(range(0, 6)) + [8, 9, 11, 40, 41] + list(range(12, 39))
-
-    # Dropping the specified columns inplace
-    df.drop(df.columns[columns_to_drop], axis=1, inplace=True)
-
-    # Dropping all columns after the 5th column
-    df = df.iloc[:, :5]
-
-    # Rename the 4th and 5th columns
-    df.rename(columns={df.columns[3]: 'nr. camere', df.columns[4]: 'nr. letti'}, inplace=True)
-
-    # Substitute NaN values and zeros with '---'
-    df.replace({pd.NA: '---', 0: '---'}, inplace=True)
-
-    # Convert numbers in 'nr. camere' and 'nr. letti' to integers
-    for col in ['nr. camere', 'nr. letti']:
-        df[col] = pd.to_numeric(df[col], errors='coerce').fillna('---').astype(str).str.replace('.0', '')
+    data.drop(data.columns[drop_indexes], axis=1, inplace=True)
     
-    return df
+    # Dropping all columns after index 43
+    data = data.iloc[:, :8]
+
+    # Moving 'Denominazione Struttura' to index 0
+    # Ensure the column name is in uppercase as the names have been converted
+    denominazione_col = data.pop('DENOMINAZIONESTRUTTURA')
+    data.insert(0, 'DENOMINAZIONE STRUTTURA', denominazione_col)
+
+    # Replace NaN values with '---'
+    data.fillna('---', inplace=True)
+
+    # Rename the last three columns
+    new_column_names = {data.columns[5]: 'CAMERE', data.columns[6]: 'LETTI', data.columns[7]: 'BAGNI'}
+    data.rename(columns=new_column_names, inplace=True)
+
+    return data

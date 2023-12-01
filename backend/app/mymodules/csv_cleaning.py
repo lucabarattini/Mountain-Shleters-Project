@@ -17,7 +17,7 @@ def cleancsv1(file_path, delimiter=';'):
     # Moving 'Denominazione Struttura' to index 0
     # Ensure the column name is in uppercase as the names have been converted
     denominazione_col = data.pop('DENOMINAZIONESTRUTTURA')
-    data.insert(0, 'DENOMINAZIONE STRUTTURA', denominazione_col)
+    data.insert(0, 'DENOMINAZIONE', denominazione_col)
 
     # Replace NaN values with '---'
     data.fillna('---', inplace=True)

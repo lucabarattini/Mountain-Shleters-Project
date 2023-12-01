@@ -11,7 +11,6 @@ from fastapi.responses import JSONResponse
 from datetime import datetime
 import pandas as pd
 
-from .mymodules.birthdays import return_birthday, print_birthdays_str
 from .mymodules.csv_cleaning import cleancsv1
 
 app = FastAPI()

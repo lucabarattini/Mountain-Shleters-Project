@@ -12,6 +12,8 @@ from datetime import datetime
 import pandas as pd
 
 from .mymodules.csv_cleaning import cleancsv1
+from .mymodules.csv_cleaning_2 import cleancsv2
+from .mymodules.csv_cleaning_3 import cleancsv3
 
 app = FastAPI()
 
@@ -46,3 +48,19 @@ print(cleaned_df)
 
 # # Display the modified DataFrame
 # print(processed_df)
+
+@app.get('/cleaned_csv_show')
+async def read_and_return_cleaned_csv():
+    csv_file_path = 'backend/app/Rifugi_Alpini_Escursionistici.csv'
+
+    # Process the CSV file using the cleancsv1 function
+    cleaned_df_2 = cleancsv2(csv_file_path)
+
+    # Convert the processed DataFrame to a dictionary
+    cleaned_data_2 = cleaned_df_2.to_dict(orient='records')
+
+    # Return the cleaned data
+    return cleaned_data_2
+
+cleaned_df_2 = cleancsv2('backend/app/Rifugi_Alpini_Escursionistici.csv')
+print(cleaned_df_2)

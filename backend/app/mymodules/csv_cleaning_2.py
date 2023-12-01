@@ -1,6 +1,6 @@
 import pandas as pd
 
-def process_data(file_path):
+def cleancsv2(file_path):
     # Read the CSV file
     df = pd.read_csv(file_path)
 

@@ -16,11 +16,20 @@ def cleancsv3(file_path):
 
     # Use iloc to select columns by their numerical indices
     df = df.iloc[:, columns_to_keep].reset_index(drop=True)
-
+    print(df.columns)
     # Replace NaN values with "---"
     df.fillna("---", inplace=True)
 
     # Round the values in the last three columns to integers
     df.iloc[:, -3:] = df.iloc[:, -3:].round().astype(int)
+    print(df.columns)
+    # Rename columns
+    df.rename(columns={'NOME_COMUNE': 'COMUNE', 'DENOMINAZIONE_STRUTTURA': 'DENOMINAZIONE', 'TEL': 'TELEFONO'}, inplace=True)
+
+    # Define the new order of columns, excluding 'EMAIL'
+    new_order = ['DENOMINAZIONE', 'PROVINCIA', 'COMUNE', 'INDIRIZZO', 'TELEFONO', 'CAMERE', 'LETTI', 'BAGNI']
+
+    # Reorder and select columns in the DataFrame
+    df = df[new_order]
 
     return df

@@ -50,10 +50,10 @@ print(cleaned_df)
 # print(processed_df)
 
 @app.get('/cleaned_csv_2_show')
-async def read_and_return_cleaned_csv_2():
+async def read_and_return_cleaned_csv():
     csv_file_path = 'app/Rifugi_Alpini_Escursionistici.csv'
 
-    # Process the CSV file using the cleancsv1 function
+    # Process the CSV file using the cleancsv2 function
     cleaned_df_2 = cleancsv2(csv_file_path)
 
     # Convert the processed DataFrame to a dictionary
@@ -64,3 +64,21 @@ async def read_and_return_cleaned_csv_2():
 
 cleaned_df_2 = cleancsv2('app/Rifugi_Alpini_Escursionistici.csv')
 print(cleaned_df_2)
+
+#---
+
+@app.get('/cleaned_csv_3_show')
+async def read_and_return_cleaned_csv():
+    csv_file_path = 'app/Strutture_Ricettive_Alberghiere_e_extra-alberghiere.csv'
+
+    # Process the CSV file using the cleancsv2 function
+    cleaned_df_3 = cleancsv3(csv_file_path)
+
+    # Convert the processed DataFrame to a dictionary
+    cleaned_data_3 = cleaned_df_3.to_dict(orient='records')
+
+    # Return the cleaned data
+    return cleaned_data_3
+
+cleaned_df_3 = cleancsv3('app/Strutture_Ricettive_Alberghiere_e_extra-alberghiere.csv')
+print(cleaned_df_3)

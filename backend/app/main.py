@@ -49,9 +49,9 @@ print(cleaned_df)
 # # Display the modified DataFrame
 # print(processed_df)
 
-@app.get('/cleaned_csv_show')
-async def read_and_return_cleaned_csv():
-    csv_file_path = 'backend/app/Rifugi_Alpini_Escursionistici.csv'
+@app.get('/cleaned_csv_2_show')
+async def read_and_return_cleaned_csv_2():
+    csv_file_path = 'app/Rifugi_Alpini_Escursionistici.csv'
 
     # Process the CSV file using the cleancsv1 function
     cleaned_df_2 = cleancsv2(csv_file_path)
@@ -62,5 +62,5 @@ async def read_and_return_cleaned_csv():
     # Return the cleaned data
     return cleaned_data_2
 
-cleaned_df_2 = cleancsv2('backend/app/Rifugi_Alpini_Escursionistici.csv')
+cleaned_df_2 = cleancsv2('app/Rifugi_Alpini_Escursionistici.csv')
 print(cleaned_df_2)

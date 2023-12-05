@@ -40,15 +40,6 @@ async def read_and_return_cleaned_csv():
     # Return the cleaned data
     return cleaned_data
 
-cleaned_df = cleancsv1('app/regpie-RifugiOpenDa_2296-all.csv')
-print(cleaned_df)
-
-# # Call the function and store the result in a variable
-# processed_df = process_data(file_path)
-
-# # Display the modified DataFrame
-# print(processed_df)
-
 @app.get('/cleaned_csv_2_show')
 async def read_and_return_cleaned_csv():
     csv_file_path = 'app/Rifugi_Alpini_Escursionistici.csv'
@@ -62,11 +53,6 @@ async def read_and_return_cleaned_csv():
     # Return the cleaned data
     return cleaned_data_2
 
-cleaned_df_2 = cleancsv2('app/Rifugi_Alpini_Escursionistici.csv')
-print(cleaned_df_2)
-
-#---
-
 @app.get('/cleaned_csv_3_show')
 async def read_and_return_cleaned_csv():
     csv_file_path = 'app/Strutture_Ricettive_Alberghiere_e_extra-alberghiere.csv'
@@ -79,6 +65,3 @@ async def read_and_return_cleaned_csv():
 
     # Return the cleaned data
     return cleaned_data_3
-
-cleaned_df_3 = cleancsv3('app/Strutture_Ricettive_Alberghiere_e_extra-alberghiere.csv')
-print(cleaned_df_3)

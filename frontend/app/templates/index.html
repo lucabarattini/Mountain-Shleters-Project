@@ -43,13 +43,12 @@
           </button>
         </div>
         <!-- Fine del carosello -->
-        <div class="mt-5"> <!-- Bootstrap class for margin-top: 0.5rem; -->
-          <button type="button" class="btn btn-primary btn-lg">Piemonte</button>
-          <button type="button" class="btn btn-secondary btn-lg">Lombardia</button>
-          <button type="button" class="btn btn-primary btn-lg">Friuli</button>
-
+        <div class="mt-5">
+          <a href="{{ url_for('piemonte') }}" class="btn btn-primary btn-lg">Piemonte</a>
+          <a href="{{ url_for('lombardia') }}" class="btn btn-secondary btn-lg">Lombardia</a>
+          <a href="{{ url_for('friuli') }}" class="btn btn-primary btn-lg">Friuli</a>
+        </div>
+        
         <p>Date from Backend: {{ date_from_backend }}</p>
     </div>
 {% endblock %}
-
-

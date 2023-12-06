@@ -79,6 +79,35 @@ def internal():
 
     return render_template('internal.html', form=form, result=None, error_message=error_message)
 
+@app.route('/lombardia')
+def lombardia():
+    """
+    Render the Lombardia page.
+
+    Returns:
+        str: Rendered HTML content for the Lombardia page.
+    """
+    return render_template('lombardia.html')
+
+@app.route('/friuli')
+def friuli():
+    """
+    Render the Friuli page.
+
+    Returns:
+        str: Rendered HTML content for the Friuli page.
+    """
+    return render_template('friuli.html')
+
+@app.route('/piemonte')
+def piemonte():
+    """
+    Render the Piemonte page.
+
+    Returns:
+        str: Rendered HTML content for the Piemonte page.
+    """
+    return render_template('piemonte.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

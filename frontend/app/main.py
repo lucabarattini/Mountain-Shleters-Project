@@ -16,11 +16,34 @@ app.config['SECRET_KEY'] = 'your_secret_key'  # Replace with a secure secret key
 FASTAPI_BACKEND_HOST = 'http://backend'  # Replace with the actual URL of your FastAPI backend
 BACKEND_URL = f'{FASTAPI_BACKEND_HOST}/query/'
 
-
 class QueryForm(FlaskForm):
     person_name = StringField('Person Name:')
     submit = SubmitField('Get Birthday from FastAPI Backend')
 
+# Define the context processor
+@app.context_processor
+def context_processor():
+    return dict(get_trail_info=get_trail_info)
+
+# Define the function to fetch trail info
+def get_trail_info(shelter_name):
+    """
+    Fetch trail info for a given shelter from the backend.
+
+    Args:
+        shelter_name (str): Name of the shelter.
+
+    Returns:
+        dict: Data from the backend.
+    """
+    backend_url = 'http://backend:80/check_shelter/' + shelter_name
+    try:
+        response = requests.get(backend_url)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching trail info from backend: {e}")
+        return {'found': False}
 
 @app.route('/')
 def index():
@@ -104,10 +127,20 @@ def piemonte():
     """
     Render the Piemonte page.
 
+    Fetches data from the backend and passes it to the template.
+    
     Returns:
         str: Rendered HTML content for the Piemonte page.
     """
-    return render_template('piemonte.html')
+    try:
+        response = requests.get('http://backend:80/cleaned_csv_show')
+        response.raise_for_status()
+        cleaned_data = response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data from backend: {e}")
+        cleaned_data = []
+
+    return render_template('piemonte.html', cleaned_data=cleaned_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

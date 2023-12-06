@@ -25,5 +25,5 @@ def cleancsv1(file_path, delimiter=';'):
     # Rename the last three columns
     new_column_names = {data.columns[5]: 'CAMERE', data.columns[6]: 'LETTI', data.columns[7]: 'BAGNI'}
     data.rename(columns=new_column_names, inplace=True)
-
+    print(data)
     return data

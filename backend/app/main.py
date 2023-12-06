@@ -37,6 +37,9 @@ async def read_and_return_cleaned_csv():
     # Convert the processed DataFrame to a dictionary
     cleaned_data = cleaned_df.to_dict(orient='records')
 
+    # Log the first few records to verify the structure
+    print(cleaned_data[:5])  # Print the first 5 records
+
     # Return the cleaned data
     return cleaned_data
 
@@ -65,3 +68,24 @@ async def read_and_return_cleaned_csv():
 
     # Return the cleaned data
     return cleaned_data_3
+
+@app.get('/check_shelter/{shelter_name}')
+async def check_shelter(shelter_name: str):
+    """
+    Check if a shelter is present in the mountain_shelters.csv file.
+
+    Args:
+        shelter_name (str): Name of the shelter to check.
+
+    Returns:
+        dict: Contains a boolean indicating if the shelter is found and additional data if available.
+    """
+    csv_file_path = 'app/mountain_shelters.csv'
+    df = pd.read_csv(csv_file_path)
+
+    # Check if the shelter name is in the DataFrame
+    shelter_data = df[df['Name'].str.contains(shelter_name, case=False, na=False)]
+    if not shelter_data.empty:
+        return {'found': True, 'data': shelter_data.to_dict(orient='records')[0]}
+    else:
+        return {'found': False}

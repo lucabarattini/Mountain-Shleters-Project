@@ -18,6 +18,18 @@
         </style>
 
     <title>{% block title %} {% endblock %}</title>
+    <style>
+      .image-container {
+          width: 20%; /* Adjust this to control the crop width */
+          overflow: hidden;
+          margin: 0 auto; /* Center the container */
+      }
+
+      .carousel-inner img {
+          width: 20%;
+          height: auto;
+      }
+  </style>
   </head>
   <body>
 

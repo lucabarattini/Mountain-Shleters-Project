@@ -10,42 +10,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.css">
 
-    <!-- Custom Styles -->
-    <style>
-        .light-grey-background {
-            background-color: #405c79; /* A very light grey color, closer to white */
-        }
-        </style>
-
     <title>{% block title %} {% endblock %}</title>
-    <style>
-      .image-container {
-          width: 20%; /* Adjust this to control the crop width */
-          overflow: hidden;
-          margin: 0 auto; /* Center the container */
-      }
-
-      .carousel-inner img {
-          width: 20%;
-          height: auto;
-      }
-  </style>
   </head>
   <body>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.js"></script>
     
-	<script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
 
-
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.css">
     <div class="container">
         {% block content %} {% endblock %}
     </div>
-
   </body>
 </html>

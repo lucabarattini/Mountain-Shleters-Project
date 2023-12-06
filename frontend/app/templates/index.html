@@ -5,53 +5,53 @@
 {% block content %}
 <div class="container-fluid mt-5 mb-5">
   <nav class="navbar navbar-expand-md navbar-light">
-        <a class="navbar-brand" href="{{ url_for('index')}}"> H-Farm Group Project</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                      <li class="nav-item active">
-                          <a class="nav-link" href="/">Home</a>
-                      </li>
-                      <li class="nav-item active">
-                          <a class="nav-link" href="/internal">Internal</a>
-                      </li>
-              </ul>
-          </div>
-      </nav>
-        <!-- Inizio del carosello -->
-        <div id="carouselExampleRide" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner mt-5">
-            <div class="carousel-item active">
-              <img src="{{ url_for('static', filename='img/rifugio1.jpg') }}" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="{{ url_for('static', filename='img/tre-cime-lavaredo-panorama-hd.jpg') }}" class="d-block w-100" alt="...">   
-            </div>
-              <div class="carousel-item">
-                <img src="{{ url_for('static', filename='img/rifugio2.jpg') }}" class="d-block w-100" alt="...">            </div>
-            </div>
-              <div class="carousel-item">
-              <img src="{{ url_for('static', filename='img/rifugio3.jpg') }}" class="d-block w-100" alt="...">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-        <!-- Fine del carosello -->
-        <div class="mt-5">
-          <a href="{{ url_for('piemonte') }}" class="btn btn-primary btn-lg">Piemonte</a>
-          <a href="{{ url_for('lombardia') }}" class="btn btn-secondary btn-lg">Lombardia</a>
-          <a href="{{ url_for('friuli') }}" class="btn btn-primary btn-lg">Friuli</a>
-        </div>
-        
-        <p>Date from Backend: {{ date_from_backend }}</p>
+    <a class="navbar-brand" href="{{ url_for('index')}}"> H-Farm Group Project</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/internal">Internal</a>
+        </li>
+      </ul>
     </div>
+  </nav>
+
+  <!-- Carousel Start -->
+  <div id="carouselExampleRide" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner mt-5">
+      <div class="carousel-item active">
+        <img src="{{ url_for('static', filename='img/rifugio1.jpg') }}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='img/tre-cime-lavaredo-panorama-hd.jpg') }}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='img/rifugio2.jpg') }}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='img/rifugio3.jpg') }}" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <!-- Carousel End -->
+
+  <div class="mt-5">
+    <a href="{{ url_for('piemonte') }}" class="btn btn-primary btn-lg">Piemonte</a>
+    <a href="{{ url_for('lombardia') }}" class="btn btn-secondary btn-lg">Lombardia</a>
+    <a href="{{ url_for('friuli') }}" class="btn btn-primary btn-lg">Friuli</a>
+  </div>
+</div>
 {% endblock %}

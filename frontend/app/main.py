@@ -4,8 +4,8 @@ Frontend module for the Flask application.
 This module defines a simple Flask application that serves as the frontend for the project.
 """
 
-from flask import Flask, render_template
-import requests  # Import the requests library to make HTTP requests
+from flask import Flask, render_template, request
+import requests
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 
@@ -79,22 +79,38 @@ def friuli():
 
 @app.route('/piemonte')
 def piemonte():
-    """
-    Render the Piemonte page.
+    # Fetch query parameters
+    bagni = request.args.get('bagni')
+    camere = request.args.get('camere')
+    letti = request.args.get('letti')
+    provincia = request.args.get('provincia')
+    comune = request.args.get('comune')
 
-    Fetches data from the backend and passes it to the template.
-    
-    Returns:
-        str: Rendered HTML content for the Piemonte page.
-    """
-    try:
-        response = requests.get('http://backend:80/cleaned_csv_show')
-        response.raise_for_status()
-        cleaned_data = response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data from backend: {e}")
-        cleaned_data = []
+    # Fetch data from the backend
+    response = requests.get('http://backend:80/cleaned_csv_show')
+    response.raise_for_status()
+    cleaned_data = response.json()
 
+    # Apply filters
+    if bagni or camere or letti or provincia or comune:
+        filtered_data = []
+        for item in cleaned_data:
+            # Check each filter criteria
+            if bagni and str(item.get('BAGNI', '')) != bagni:
+                continue
+            if camere and str(item.get('CAMERE', '')) != camere:
+                continue
+            if letti and str(item.get('LETTI', '')) != letti:
+                continue
+            if provincia and item.get('PROVINCIA', '').lower() != provincia.lower():
+                continue
+            if comune and item.get('COMUNE', '').lower() != comune.lower():
+                continue
+
+            # If the item passes all filters, add it to filtered_data
+            filtered_data.append(item)
+
+        cleaned_data = filtered_data
     return render_template('piemonte.html', cleaned_data=cleaned_data)
 
 if __name__ == '__main__':

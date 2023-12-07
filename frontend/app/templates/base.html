@@ -10,6 +10,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.css">
 
+    <style>
+      /* Fixing Carousel Image Height */
+      #carouselExampleRide .carousel-inner img {
+          height: 400px; /* Fixed height for carousel images */
+          object-fit: cover; /* Ensures images cover the area fully */
+      }
+    </style>
+
     <title>{% block title %} {% endblock %}</title>
   </head>
   <body>

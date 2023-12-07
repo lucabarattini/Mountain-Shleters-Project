@@ -21,11 +21,8 @@ def scrape_shelter_urls():
 
     urls = []
     base_url = "https://www.escursionismo.it/rifugi-bivacchi/"
-
-    # Counter for the number of URLs
     url_count = 0
 
-    # Initial request to get the total number of pages
     response = requests.get(base_url)
     soup = BeautifulSoup(response.content, 'html.parser')
     total_pages = int(soup.find_all('a', class_='page-numbers')[-2].text)
@@ -57,7 +54,7 @@ def scrape_shelter_urls():
 def scrape_shelter_details(url):
     """
     Scrapes detailed information for a single shelter from the provided URL.
-    Extracts the shelter's name and description and returns them in a dictionary.
+    Extracts the shelter's name, description, and coordinates and returns them in a dictionary.
     """
     details = {}
 
@@ -66,25 +63,26 @@ def scrape_shelter_details(url):
         soup = BeautifulSoup(response.content, 'html.parser')
 
         name_tag = soup.find('h3', style="margin-top: 25px")
-        if name_tag:
-            details['Name'] = name_tag.text.strip()
-        else:
-            details['Name'] = 'Name not found'
+        details['Name'] = name_tag.text.strip() if name_tag else 'Name not found'
 
         description_tag = soup.find('div', class_='descrizione-lunga')
-        if description_tag:
-            details['Description'] = description_tag.text.strip()
-        else:
-            details['Description'] = 'Description not found'
+        details['Description'] = description_tag.text.strip() if description_tag else 'Description not found'
+
+        # New logic to extract coordinates
+        details['Latitude'], details['Longitude'] = 'Coordinates not found', 'Coordinates not found'
+        for td in soup.find_all('td'):
+            if 'Lat:' in td.text and 'Long:' in td.text:
+                coords = td.get_text(separator="|").split('|')
+                if len(coords) >= 2:
+                    details['Latitude'] = coords[0].split(':')[1].strip()
+                    details['Longitude'] = coords[1].split(':')[1].strip()
 
     except requests.exceptions.RequestException as e:
         print(f"Request failed: {e}")
-        details['Name'] = 'Request failed'
-        details['Description'] = 'Request failed'
+        details = {'Name': 'Request failed', 'Description': 'Request failed', 'Latitude': 'Request failed', 'Longitude': 'Request failed'}
     except Exception as e:
         print(f"An error occurred while scraping {url}: {e}")
-        details['Name'] = 'Error occurred'
-        details['Description'] = 'Error occurred'
+        details = {'Name': 'Error occurred', 'Description': 'Error occurred', 'Latitude': 'Error occurred', 'Longitude': 'Error occurred'}
 
     return details
 

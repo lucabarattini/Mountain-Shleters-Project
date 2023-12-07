@@ -86,6 +86,8 @@ async def check_shelter(shelter_name: str):
     # Check if the shelter name is in the DataFrame
     shelter_data = df[df['Name'].str.contains(shelter_name, case=False, na=False)]
     if not shelter_data.empty:
-        return {'found': True, 'data': shelter_data.to_dict(orient='records')[0]}
+        # Extracting first matching record
+        record = shelter_data.to_dict(orient='records')[0]
+        return {'found': True, 'data': record}
     else:
         return {'found': False}

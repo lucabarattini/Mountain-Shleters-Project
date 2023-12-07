@@ -20,15 +20,13 @@ class QueryForm(FlaskForm):
     person_name = StringField('Person Name:')
     submit = SubmitField('Get Birthday from FastAPI Backend')
 
-# Define the context processor
 @app.context_processor
 def context_processor():
-    return dict(get_trail_info=get_trail_info)
+    return dict(fetch_shelter_info=fetch_shelter_info)
 
-# Define the function to fetch trail info
-def get_trail_info(shelter_name):
+def fetch_shelter_info(shelter_name):
     """
-    Fetch trail info for a given shelter from the backend.
+    Fetch complete shelter info, including trail info and coordinates, from the backend.
 
     Args:
         shelter_name (str): Name of the shelter.
@@ -36,14 +34,18 @@ def get_trail_info(shelter_name):
     Returns:
         dict: Data from the backend.
     """
-    backend_url = 'http://backend:80/check_shelter/' + shelter_name
+    backend_url = f'http://backend:80/check_shelter/{shelter_name}'
     try:
         response = requests.get(backend_url)
         response.raise_for_status()
-        return response.json()
+        result = response.json()
+        # Ensure 'data' key is always present
+        if 'data' not in result:
+            result['data'] = {}
+        return result
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching trail info from backend: {e}")
-        return {'found': False}
+        print(f"Error fetching information from backend: {e}")
+        return {'found': False, 'data': {}}
 
 @app.route('/')
 def index():
@@ -53,54 +55,7 @@ def index():
     Returns:
         str: Rendered HTML content for the index page.
     """
-    # Fetch the date from the backend
-    date_from_backend = fetch_date_from_backend()
-    return render_template('index.html', date_from_backend=date_from_backend)
-
-def fetch_date_from_backend():
-    """
-    Function to fetch the current date from the backend.
-
-    Returns:
-        str: Current date in ISO format.
-    """
-    backend_url = 'http://backend/get-date'  # Adjust the URL based on your backend configuration
-    try:
-        response = requests.get(backend_url)
-        response.raise_for_status()  # Raise an HTTPError for bad responses
-        return response.json().get('date', 'Date not available')
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching date from backend: {e}")
-        return 'Date not available'
-
-
-@app.route('/internal', methods=['GET', 'POST'])
-def internal():
-    """
-    Render the internal page.
-
-    Returns:
-        str: Rendered HTML content for the index page.
-    """
-    form = QueryForm()
-    error_message = None  # Initialize error message
-
-    if form.validate_on_submit():
-        person_name = form.person_name.data
-
-        # Make a GET request to the FastAPI backend
-        fastapi_url = f'{FASTAPI_BACKEND_HOST}/query/{person_name}'
-        response = requests.get(fastapi_url)
-
-        if response.status_code == 200:
-            # Extract and display the result from the FastAPI backend
-            data = response.json()
-            result = data.get('birthday', f'Error: Birthday not available for {person_name}')
-            return render_template('internal.html', form=form, result=result, error_message=error_message)
-        else:
-            error_message = f'Error: Unable to fetch birthday for {person_name} from FastAPI Backend'
-
-    return render_template('internal.html', form=form, result=None, error_message=error_message)
+    return render_template('index.html')
 
 @app.route('/lombardia')
 def lombardia():

@@ -6,7 +6,6 @@
 <div class="container-fluid mt-5 mb-5">
     <h1>Welcome to Piemonte</h1>
     <p>Here you can find information about Piemonte...</p>
-    <!-- Add more content such as images, information, links, etc. -->
 
     <!-- Displaying mountain shelters -->
     <div class="row">
@@ -25,16 +24,9 @@
                             <strong>Bagni:</strong> {{ item['BAGNI'] }}<br>
                         </p>
 
-                        <!-- Fetch additional data from the backend -->
-                        {% set trail_info = get_trail_info(item['DENOMINAZIONE']) %}
-                        {% if trail_info['found'] %}
-                            <!-- Display data from mountain_shelters.csv -->
-                            <!-- Add the fields you want to display from mountain_shelters.csv -->
-                            <!-- Example: -->
-                            <strong>Additional Info:</strong> {{ trail_info['data']['Description'] }}<br>
-                        {% else %}
-                            <span>💀 Sorry, I wasn’t able to find the trail path for your mountain shelter.</span>
-                        {% endif %}
+                        {% set shelter_info = fetch_shelter_info(item['DENOMINAZIONE']) %}
+                        <strong>Trail Info:</strong> {{ shelter_info['data']['Description'] }}<br>
+                        <strong>Coordinates:</strong> {{ shelter_info['data']['Latitude'] }}, {{ shelter_info['data']['Longitude'] }}<br>
                     </div>
                 </div>
             </div>

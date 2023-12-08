@@ -57,26 +57,6 @@ def index():
     """
     return render_template('index.html')
 
-@app.route('/lombardia')
-def lombardia():
-    """
-    Render the Lombardia page.
-
-    Returns:
-        str: Rendered HTML content for the Lombardia page.
-    """
-    return render_template('lombardia.html')
-
-@app.route('/friuli')
-def friuli():
-    """
-    Render the Friuli page.
-
-    Returns:
-        str: Rendered HTML content for the Friuli page.
-    """
-    return render_template('friuli.html')
-
 @app.route('/piemonte')
 def piemonte():
     # Fetch query parameters
@@ -113,11 +93,29 @@ def piemonte():
         cleaned_data = filtered_data
     return render_template('piemonte.html', cleaned_data=cleaned_data)
 
+@app.route('/lombardia')
+def lombardia():
+    """
+    Render the Lombardia page.
+
+    Returns:
+        str: Rendered HTML content for the Lombardia page.
+    """
+    return render_template('lombardia.html')
+
+@app.route('/friuli')
+def friuli():
+    """
+    Render the Friuli page.
+
+    Returns:
+        str: Rendered HTML content for the Friuli page.
+    """
+    return render_template('friuli.html')
+
 @app.route('/project_description')
 def project_description():
     return render_template('project_description.html')
-
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

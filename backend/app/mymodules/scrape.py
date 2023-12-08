@@ -41,10 +41,6 @@ def scrape_shelter_urls():
     return urls
 
 def scrape_shelter_details(url):
-    """
-    Scrapes detailed information for a single shelter from the provided URL.
-    Extracts the shelter's name, description, and coordinates and returns them in a dictionary.
-    """
     details = {}
 
     try:
@@ -57,15 +53,15 @@ def scrape_shelter_details(url):
         description_tag = soup.find('div', class_='descrizione-lunga')
         details['Description'] = description_tag.text.strip() if description_tag else 'Description not found'
 
-        coords_tag = soup.find('td', text=lambda x: x and 'Lat:' in x)
-        if coords_tag:
-            coords = coords_tag.get_text(separator="|").split('|')
-            if len(coords) >= 2:
-                details['Latitude'] = coords[0].split(':')[1].strip()
-                details['Longitude'] = coords[1].split(':')[1].strip()
-        else:
-            details['Latitude'] = 'Coordinates not found'
-            details['Longitude'] = 'Coordinates not found'
+        # Find all 'td' elements and iterate over them
+        details['Latitude'], details['Longitude'] = 'Coordinates not found', 'Coordinates not found'
+        for td in soup.find_all('td'):
+            if 'Lat:' in td.text and 'Long:' in td.text:
+                coords = td.get_text(separator="|").split('|')
+                if len(coords) >= 2:
+                    details['Latitude'] = coords[0].split(':')[1].strip()
+                    details['Longitude'] = coords[1].split(':')[1].strip()
+                break
 
     except requests.exceptions.RequestException as e:
         details = {'Name': 'Request failed', 'Description': 'Request failed', 'Latitude': 'Request failed', 'Longitude': 'Request failed'}
@@ -76,12 +72,14 @@ def scrape_shelter_details(url):
 
 def main():
     all_shelter_urls = scrape_shelter_urls()
-    all_shelter_details = []
 
+    # Process all shelter URLs
+    all_shelter_details = []
     for url in tqdm(all_shelter_urls, desc="Scraping Shelter Details"):
         details = scrape_shelter_details(url)
         all_shelter_details.append(details)
 
+    # Save to CSV
     csv_file = 'backend/app/mountain_shelters.csv'
     df = pd.DataFrame(all_shelter_details)
     df.to_csv(csv_file, index=False)
@@ -89,3 +87,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

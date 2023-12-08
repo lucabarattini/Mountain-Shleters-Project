@@ -113,5 +113,11 @@ def piemonte():
         cleaned_data = filtered_data
     return render_template('piemonte.html', cleaned_data=cleaned_data)
 
+@app.route('/project_description')
+def project_description():
+    return render_template('project_description.html')
+
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

@@ -45,9 +45,21 @@
                         </p>
 
                         {% set shelter_info = fetch_shelter_info(item['DENOMINAZIONE']) %}
-                        <strong>Trail Info:</strong> {{ shelter_info['data']['Description'] }}<br>
-                        <strong>Coordinates:</strong> {{ shelter_info['data']['Latitude'] }}, {{ shelter_info['data']['Longitude'] }}<br>
-                    </div>
+                        <strong>Trail Info:</strong>
+                        {% if shelter_info.data.Description is defined %}
+                            {{ shelter_info.data.Description }}
+                        {% else %}
+                            💀 Trail info not found!
+                        {% endif %}
+                        <br>
+                        <strong>Coordinates:</strong>
+                        {% if shelter_info.data.Latitude is defined and shelter_info.data.Longitude is defined %}
+                            {{ shelter_info.data.Latitude }}, {{ shelter_info.data.Longitude }}
+                        {% else %}
+                            💀 Coordinates not found!
+                        {% endif %}
+                        <br>           
+                    </div>         
                 </div>
             </div>
         {% endfor %}

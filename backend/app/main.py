@@ -17,15 +17,35 @@ from .mymodules.csv_cleaning_3 import cleancsv3
 
 app = FastAPI()
 
-@app.get('/')
+@app.get("/")
 def read_root():
-    """
-    Root endpoint for the backend.
+    return {"message": "Your Backend is running :)"}
 
-    Returns:
-        dict: A simple greeting confirming it's working.
+@app.on_event("startup")
+async def startup_event():
+    print("Your Backend is running: 🌈")
+
+# Google API key
+GOOGLE_API_KEY = "AIzaSyATC1fSYrOd7mQufuvHCOZX2CdXptZNvas"  # Replace with your actual API key
+
+def get_coordinates(address):
     """
-    return {"Test endpoint API": "It's working"}
+    Convert an address to geographic coordinates using Google's Geocoding API.
+    """
+    base_url = "https://maps.googleapis.com/maps/api/geocode/json"
+    params = {"address": address, "key": GOOGLE_API_KEY}
+    try:
+        response = requests.get(base_url, params=params)
+        response.raise_for_status()  # This will raise an error for non-200 responses
+        data = response.json()
+        if data['status'] != 'OK':
+            print(f"Error in Geocoding API response: {data['status']}")
+            return None, None
+        location = data['results'][0]['geometry']['location']
+        return location['lat'], location['lng']
+    except requests.exceptions.RequestException as e:
+        print(f"Error connecting to Geocoding API: {e}")
+        return None, None
 
 @app.get('/cleaned_csv_show')
 async def read_and_return_cleaned_csv():

@@ -23,9 +23,27 @@
             <div class="form-group col-md-3">
                 <input type="text" class="form-control" name="comune" placeholder="Comune">
             </div>
+            <div class="form-group col-md-3">
+                <input type="text" class="form-control" name="location" placeholder="🗺️ Enter a location">
+            </div>
+            <div class="form-group col-md-2">
+                <select class="form-control" name="range_km">
+                    <option value="5.0">5 KM</option>
+                    <option value="10.0">10 KM</option>
+                    <option value="20.0">20 KM</option>
+                    <option value="50.0">50 KM</option>
+                    <option value="80.0">80 KM</option>
+                    <option value="100.0">100 KM</option>
+                </select>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary mt-4">Apply Filters</button>
     </form>
+
+    <!-- Progress Bar -->
+    <div class="progress mt-3" style="height: 25px;">
+        <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+    </div>
 
     <!-- Displaying mountain shelters -->
     <div class="row mt-5">
@@ -42,27 +60,34 @@
                             <strong>Camere:</strong> {{ item['CAMERE'] }}<br>
                             <strong>Letti:</strong> {{ item['LETTI'] }}<br>
                             <strong>Bagni:</strong> {{ item['BAGNI'] }}<br>
+                            <strong>Description:</strong> {{ item['Description'] }}<br>
+                            <strong>Coordinates:</strong> {{ item['Latitude'] }}, {{ item['Longitude'] }}<br>
                         </p>
-
-                        {% set shelter_info = fetch_shelter_info(item['DENOMINAZIONE']) %}
-                        <strong>Trail Info:</strong>
-                        {% if shelter_info.data.Description is defined %}
-                            {{ shelter_info.data.Description }}
-                        {% else %}
-                            💀 Trail info not found!
-                        {% endif %}
-                        <br>
-                        <strong>Coordinates:</strong>
-                        {% if shelter_info.data.Latitude is defined and shelter_info.data.Longitude is defined %}
-                            {{ shelter_info.data.Latitude }}, {{ shelter_info.data.Longitude }}
-                        {% else %}
-                            💀 Coordinates not found!
-                        {% endif %}
-                        <br>           
                     </div>         
                 </div>
             </div>
         {% endfor %}
     </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const form = document.querySelector('form');
+    const progressBar = document.getElementById('progress-bar');
+
+    form.addEventListener('submit', function (e) {
+      let width = 0;
+      const interval = setInterval(function() {
+        if (width >= 100) {
+          clearInterval(interval);
+        } else {
+          width++;
+          progressBar.style.width = width + '%';
+          progressBar.textContent = width + '%';
+        }
+      }, 100); // Adjust the time interval as needed
+    });
+  });
+</script>
+
 {% endblock %}

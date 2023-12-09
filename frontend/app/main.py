@@ -60,37 +60,21 @@ def index():
 @app.route('/piemonte')
 def piemonte():
     # Fetch query parameters
-    bagni = request.args.get('bagni')
-    camere = request.args.get('camere')
-    letti = request.args.get('letti')
-    provincia = request.args.get('provincia')
-    comune = request.args.get('comune')
+    query_params = {
+        'bagni': request.args.get('bagni'),
+        'camere': request.args.get('camere'),
+        'letti': request.args.get('letti'),
+        'provincia': request.args.get('provincia'),
+        'comune': request.args.get('comune'),
+        'location': request.args.get('location'),
+        'range_km': request.args.get('range_km')
+    }
 
-    # Fetch data from the backend
-    response = requests.get('http://backend:80/cleaned_csv_show')
+    # Fetch data from the backend with query parameters
+    response = requests.get('http://backend:80/cleaned_csv_show', params=query_params)
     response.raise_for_status()
     cleaned_data = response.json()
 
-    # Apply filters
-    if bagni or camere or letti or provincia or comune:
-        filtered_data = []
-        for item in cleaned_data:
-            # Check each filter criteria
-            if bagni and str(item.get('BAGNI', '')) != bagni:
-                continue
-            if camere and str(item.get('CAMERE', '')) != camere:
-                continue
-            if letti and str(item.get('LETTI', '')) != letti:
-                continue
-            if provincia and item.get('PROVINCIA', '').lower() != provincia.lower():
-                continue
-            if comune and item.get('COMUNE', '').lower() != comune.lower():
-                continue
-
-            # If the item passes all filters, add it to filtered_data
-            filtered_data.append(item)
-
-        cleaned_data = filtered_data
     return render_template('piemonte.html', cleaned_data=cleaned_data)
 
 @app.route('/lombardia')

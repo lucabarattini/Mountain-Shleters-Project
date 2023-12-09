@@ -5,15 +5,18 @@ This module defines a FastAPI application that serves
 as the backend for the project.
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Query
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from datetime import datetime
 import pandas as pd
+from haversine import haversine
 
 from .mymodules.csv_cleaning import cleancsv1
 from .mymodules.csv_cleaning_2 import cleancsv2
 from .mymodules.csv_cleaning_3 import cleancsv3
+import json
+import requests
 
 app = FastAPI()
 
@@ -48,20 +51,61 @@ def get_coordinates(address):
         return None, None
 
 @app.get('/cleaned_csv_show')
-async def read_and_return_cleaned_csv():
-    csv_file_path = 'app/regpie-RifugiOpenDa_2296-all.csv'
+async def read_and_return_cleaned_csv(
+    bagni: str = Query(None), 
+    camere: str = Query(None), 
+    letti: str = Query(None), 
+    provincia: str = Query(None), 
+    comune: str = Query(None), 
+    location: str = Query(None), 
+    range_km: float = Query(None)
+):
+    # CSV file paths
+    regpie_csv_path = 'app/regpie-RifugiOpenDa_2296-all.csv'
+    shelters_csv_path = 'app/mountain_shelters.csv'
 
-    # Process the CSV file using the cleancsv1 function
-    cleaned_df = cleancsv1(csv_file_path)
+    # Process and merge the CSV files
+    cleaned_df = cleancsv1(regpie_csv_path, shelters_csv_path)
 
-    # Convert the processed DataFrame to a dictionary
+    # Initialize user coordinates
+    user_lat, user_lng = None, None
+    if location:
+        user_lat, user_lng = get_coordinates(location)
+        if user_lat is None or user_lng is None:
+            print("Invalid location or unable to get coordinates.")
+            raise HTTPException(status_code=400, detail="Invalid location")
+        else:
+            print(f"User coordinates: Latitude = {user_lat}, Longitude = {user_lng}")
+
+    # Convert the DataFrame to a dictionary for processing
     cleaned_data = cleaned_df.to_dict(orient='records')
 
-    # Log the first few records to verify the structure
-    print(cleaned_data[:5])  # Print the first 5 records
+    # Apply filters
+    filtered_data = []
+    for item in cleaned_data:
+        if bagni and str(item.get('BAGNI', '')) != bagni:
+            continue
+        if camere and str(item.get('CAMERE', '')) != camere:
+            continue
+        if letti and str(item.get('LETTI', '')) != letti:
+            continue
+        if provincia and item.get('PROVINCIA', '').lower() != provincia.lower():
+            continue
+        if comune and item.get('COMUNE', '').lower() != comune.lower():
+            continue
 
-    # Return the cleaned data
-    return cleaned_data
+        # Location-based filtering
+        if user_lat is not None and user_lng is not None and 'Latitude' in item and 'Longitude' in item:
+            item_lat, item_lng = item['Latitude'], item['Longitude']
+            distance = haversine((user_lat, user_lng), (item_lat, item_lng))
+            print(f"Distance from {item['DENOMINAZIONE']} to user location: {distance} km")
+            if distance > range_km:
+                continue
+
+        filtered_data.append(item)
+
+    return JSONResponse(content=filtered_data)
+
 
 @app.get('/cleaned_csv_2_show')
 async def read_and_return_cleaned_csv():
@@ -88,26 +132,3 @@ async def read_and_return_cleaned_csv():
 
     # Return the cleaned data
     return cleaned_data_3
-
-@app.get('/check_shelter/{shelter_name}')
-async def check_shelter(shelter_name: str):
-    """
-    Check if a shelter is present in the mountain_shelters.csv file.
-
-    Args:
-        shelter_name (str): Name of the shelter to check.
-
-    Returns:
-        dict: Contains a boolean indicating if the shelter is found and additional data if available.
-    """
-    csv_file_path = 'app/mountain_shelters.csv'
-    df = pd.read_csv(csv_file_path)
-
-    # Check if the shelter name is in the DataFrame
-    shelter_data = df[df['Name'].str.contains(shelter_name, case=False, na=False)]
-    if not shelter_data.empty:
-        # Extracting first matching record
-        record = shelter_data.to_dict(orient='records')[0]
-        return {'found': True, 'data': record}
-    else:
-        return {'found': False}

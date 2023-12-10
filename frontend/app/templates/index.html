@@ -5,53 +5,77 @@
 {% block content %}
 <div class="container-fluid mt-5 mb-5">
   <nav class="navbar navbar-expand-md navbar-light">
-    <a class="navbar-brand" href="{{ url_for('index')}}"> H-Farm Group Project</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand d-md-none" href="{{ url_for('index') }}">Mountain House</a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+    
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="/">Home</a>
         </li>
+      </ul>
+      <a class="navbar-brand mx-auto d-none d-md-block" href="{{ url_for('index') }}">Mountain House</a>
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="/project_description">Project Description</a>
         </li>
       </ul>
     </div>
   </nav>
+</div>
 
-  <!-- Carousel Start -->
-  <div id="carouselExampleRide" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner mt-5">
-      <div class="carousel-item active" data-bs-interval="3000">
-        <img src="{{ url_for('static', filename='img/rifugio1.jpg') }}" class="d-block w-100" alt="...">
+<div class="container">
+  <div class="row">
+      <div class="col">
+          <img src="{{ url_for('static', filename='img/Screenshot 2023-12-08 alle 15.31.55.png') }}" class="img-fluid" alt="Screenshot">
       </div>
-      <div class="carousel-item" data-bs-interval="3000">
-        <img src="{{ url_for('static', filename='img/tre-cime-lavaredo-panorama-hd.jpg') }}" class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item" data-bs-interval="3000">
-        <img src="{{ url_for('static', filename='img/rifugio2.jpg') }}" class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item" data-bs-interval="3000">
-        <img src="{{ url_for('static', filename='img/rifugio3.jpg') }}" class="d-block w-100" alt="...">
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
   </div>
-  <!-- Carousel End -->
+</div>
 
-  <div class="mt-5">
-    <a href="{{ url_for('piemonte') }}" class="btn btn-primary btn-lg">Piemonte</a>
-    <a href="{{ url_for('lombardia') }}" class="btn btn-secondary btn-lg">Lombardia</a>
-    <a href="{{ url_for('friuli') }}" class="btn btn-primary btn-lg">Friuli</a>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Esplora le Alpi Italiane:</h2>
+    </div>
+    <div class="col-md-8">
+      <p>Benvenuti nel cuore pulsante delle Alpi italiane. Il nostro sito è la vostra bussola digitale per scoprire rifugi incantevoli e poco conosciuti nelle regioni di Lombardia, Piemonte e Friuli. Qui, la bellezza selvaggia delle montagne si unisce all'accoglienza calda dei rifugi alpini, offrendo un'esperienza di escursionismo e soggiorno unica. Che siate amanti dell'escursionismo, appassionati di natura o semplicemente in cerca di un rifugio lontano dal trambusto quotidiano, il nostro sito vi guida verso la scoperta di gemme nascoste, dove il tempo sembra fermarsi e la natura parla.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Come funziona:</h2>
+    </div>
+    <div class="col-md-8">
+      <p>La ricerca del rifugio perfetto non è mai stata così semplice. Ecco come aiutiamo i nostri visitatori a trovare la loro prossima destinazione di montagna:</p>
+      <ul>
+        <li><strong>Scegli la Regione:</strong> Inizia selezionando Lombardia, Piemonte o Friuli. Ogni regione ha il suo fascino unico e rifugi da esplorare.</li>
+        <li><strong>Filtra le tue Preferenze:</strong> Usa i nostri filtri intuitivi per specificare le tue esigenze. Che tu stia cercando rifugi adatti a famiglie, opzioni pet-friendly, o rifugi con specifici servizi, abbiamo qualcosa per tutti.</li>
+        <li><strong>Esplora e Scopri:</strong> Naviga tra le nostre liste dettagliate complete di fotografie, recensioni e informazioni essenziali. Conoscere ogni rifugio prima di partire non è mai stato così facile.</li>
+        <li><strong>Pianifica la Tua Avventura:</strong> Una volta trovato il rifugio ideale, forniamo tutte le informazioni necessarie per raggiungerlo, oltre a suggerimenti su sentieri escursionistici e attività nelle vicinanze.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <!-- Prima riga per il Piemonte -->
+  <div class="row mb-4">
+    <!-- Colonna di sinistra con il testo per il Piemonte -->
+    <div class="col-md-6">
+      <h3>Rifugi in Piemonte</h3>
+      <p>Scopri il Piemonte, dove i rifugi si annidano tra le Alpi Occidentali. Questa regione offre un mix unico di natura selvaggia, tradizioni culinarie e percorsi escursionistici per un'esperienza autentica e memorabile.</p>
+    </div>
+    <!-- Colonna di destra con il pulsante per il Piemonte -->
+    <div class="col-md-6 d-flex align-items-center">
+      <a href="{{ url_for('piemonte') }}" class="btn btn-primary btn-lg">Piemonte</a>
+    </div>
   </div>
 </div>
 {% endblock %}

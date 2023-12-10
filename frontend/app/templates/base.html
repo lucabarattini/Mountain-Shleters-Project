@@ -16,7 +16,27 @@
           height: 400px; /* Fixed height for carousel images */
           object-fit: cover; /* Ensures images cover the area fully */
       }
-    </style>
+  
+      /* Add rounded corners and border to team member images */
+      .team-member {
+          border: 2px solid #ccc;
+          border-radius: 10px;
+          padding: 10px;
+      }
+  
+      .team-member img {
+          border-radius: 50%;
+      }
+
+      .rounded-image-container {
+          background-image: url('https://picsum.photos/1280/720?image=811');
+          background-size: cover;
+          background-position: center;
+          border: 5px solid rgba(0, 0, 0, 0.572); /* Blue border */
+          border-radius: 15px; /* Rounded corners */
+          padding: 100px 0;
+      }
+  </style>
 
     <title>{% block title %} {% endblock %}</title>
   </head>

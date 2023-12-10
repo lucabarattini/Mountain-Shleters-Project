@@ -4,43 +4,204 @@
 
 {% block content %}
 <div class="container-fluid">
-    <h1 class="mt-4">Project Description</h1>
-
     <!-- Project File Structure -->
-    <section class="mt-5">
-        <h2>Project File Structure</h2>
-        <p>Here you'll find a detailed explanation of the project's file structure...</p>
-        <!-- Add more details about file structure here -->
-    </section>
+    <section lass="py-3 py-md-5 py-xl-8">
+        <h2 class="mt-5 mb-4 display-5 text-center">📂 Project File Structure</h2>
+        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient individuals. You will love to collaborate with us.</p>
+        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+        <div class="d-flex justify-content-center">
+            <!-- Backend File Structure -->
+            <div class="card me-3 mb-5" style="flex-grow: 1;">
+                <div class="card-body">
+                    <h3 class="card-title">Backend</h3>
+                    <ul>
+                        <li>.vscode</li>
+                        <li>app
+                            <ul>
+                                <li>__pycache__</li>
+                                <li>mymodules
+                                    <ul>
+                                        <li>__pycache__</li>
+                                        <li>__init__.py</li>
+                                        <li>birthdays.py</li>
+                                        <li>csv_cleaning_2.py</li>
+                                        <li>csv_cleaning_3.py</li>
+                                        <li>csv_cleaning.py</li>
+                                        <li>scrape.py</li>
+                                    </ul>
+                                </li>
+                                <li>__init__.py</li>
+                                <li>main.py</li>
+                                <li>mountain_shelters.csv</li>
+                                <li>regpie-RifugiOpenDa_2296-all.csv</li>
+                                <li>Rifugi_Alpini_Escursionistici.csv</li>
+                                <li>Strutture_Ricettive_Alberghiere_e_extra-alberghiere.csv</li>
+                                <li>urls_cache.txt</li>
+                                <li>Dockerfile</li>
+                                <li>requirements.txt</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Frontend File Structure -->
+            <div class="card ms-3 mb-5" style="flex-grow: 1;">
+                <div class="card-body">
+                    <h3 class="card-title">Frontend</h3>
+                    <ul>
+                        <li>.vscode</li>
+                        <li>app
+                            <ul>
+                                <li>__pycache__</li>
+                                <li>static
+                                    <ul>
+                                        <li>img
+                                            <ul>
+                                                <li>IMG_6780 copy.jpeg</li>
+                                                <li>Profile_Pic.JPG</li>
+                                                <li>rifugio1.jpg</li>
+                                                <li>rifugio2.jpg</li>
+                                                <li>rifugio3.jpg</li>
+                                                <li>tre-cime-lavaredo-panorama-hd.jpg</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>templates
+                                    <ul>
+                                        <li>base.html</li>
+                                        <li>friuli.html</li>
+                                        <li>index.html</li>
+                                        <li>lombardia.html</li>
+                                        <li>piemonte.html</li>
+                                        <li>project_description.html</li>
+                                    </ul>
+                                </li>
+                                <li>main.py</li>
+                                <li>Dockerfile</li>
+                                <li>requirements.txt</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </section>        
 
     <!-- How to Use the Website -->
-    <section class="mt-5">
-        <h2>How to Use the Website</h2>
-        <p>Detailed instructions on how to navigate and use the website...</p>
-        <!-- Add more usage instructions here -->
+    <section lass="py-3 py-md-5 py-xl-8">
+        <h2 class="mt-4 mb-4 display-5 text-center">📜 How to use the website</h2>
+        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient individuals. You will love to collaborate with us.</p>
+        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
     </section>
 
-    <!-- Development Team -->
-    <section class="mt-5">
-        <h2>Development Team</h2>
+    <section lass="py-3 py-md-5 py-xl-8">
+        <h2 class="mt-4 mb-4 display-5 text-center">🚨 Most Important concepts:</h2>
+        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient individuals. You will love to collaborate with us.</p>
+        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
         <div class="row">
-            <!-- Replace with actual team members' details and images -->
-            <div class="col-md-4">
-                <img src="path_to_image" alt="Team Member 1" class="img-fluid">
-                <h3>Team Member 1</h3>
-                <p>Role/Position</p>
+            <div class="col-12 col-lg-8">
+              <!--start card-->
+              <div class="card-wrapper card-space">
+                <div class="card card-bg card-big border-bottom-card">
+                  <div class="flag-icon"></div>
+                  <div class="etichetta">
+                    <svg class="icon">
+                      <use href="{{ url_for('static', filename='svg/ruler-svgrepo-com.svg')}}"></use>
+                    </svg>
+                    <span>Sviluppo</span>
+                  </div>
+                  <div class="card-body">
+                    <h3 class="card-title h5 ">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor…</h3>
+                    <p class="card-text font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <a class="read-more" href="#">
+                      <span class="text">Leggi di più</span>
+                      <span class="visually-hidden">su Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor…</span>
+                      <svg class="icon">
+                        <use href="/bootstrap-italia/dist/svg/sprites.svg#it-arrow-right"></use>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!--end card-->
             </div>
-            <div class="col-md-4">
-                <img src="path_to_image" alt="Team Member 2" class="img-fluid">
-                <h3>Team Member 2</h3>
-                <p>Role/Position</p>
+          </div>
+    </section>
+
+    <section class="section section-image rounded-image-container" aria-describedby="titleEx5" style="background-image: url('https://picsum.photos/1280/720?image=811'); background-size: cover; background-position: center; color: white;">
+        <div class="section-content" style="padding: 120px 80px;"> 
+            <!-- Example content START -->
+            <div class="container-fluid">
+                <div class="row mb-5"> <!-- Increase bottom margin as needed -->
+                    <div class="col-12">
+                        <h2 id="titleEx5" style="font-size: 3rem;">Morbi fermentum amet</h2> <!-- Increase font size as needed -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-xl-4 mb-5" style="padding-right: 1rem;"> <!-- Adjust right padding as needed -->
+                        Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus.
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl-4 mb-5" style="padding-right: 1rem;"> <!-- Adjust right padding as needed -->
+                        Eget egestas purus viverra accumsan. Diam maecenas ultricies mi eget mauris pharetra et. Etiam dignissim diam quis enim. Eu nisl nunc mi ipsum faucibus.
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl-4 mb-5" style="padding-right: 1rem;"> <!-- Adjust right padding as needed -->
+                        Euismod lacinia at quis risus sed vulputate. Scelerisque purus semper eget duis at tellus at urna condimentum. Mattis enim ut tellus elementum sagittis.
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <img src="app/static/img/Profile_Pic.JPG" alt="Team Member 3" class="img-fluid">
-                <h3>Team Member 3</h3>
-                <p>Role/Position</p>
+            <!-- Example content END -->
+        </div>
+    </section>
+    
+    
+
+    <!-- Development Team -->
+    <section class="py-3 py-md-5 py-xl-8">
+        <h2 class="mb-4 display-5 text-center">Our Team</h2>
+        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient individuals. You will love to collaborate with us.</p>
+        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+    
+        <div class="container overflow-hidden">
+            <div class="row gy-4 gy-lg-0 gx-xxl-5">
+                <!-- Team Members Cards -->
+                <!-- Make sure to replace 'team_member_x.jpg' with the actual image filenames -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                        <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}" alt="Team Member 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Team Member 1</h5>
+                            <p class="card-text">Role/Position</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                        <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}" alt="Team Member 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Team Member 1</h5>
+                            <p class="card-text">Role/Position</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                        <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}" alt="Team Member 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Team Member 1</h5>
+                            <p class="card-text">Role/Position</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                        <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}" alt="Team Member 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Team Member 1</h5>
+                            <p class="card-text">Role/Position</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Add more team members as needed -->
         </div>
     </section>
 </div>

@@ -3,74 +3,65 @@
 {% block title %} Homepage of Frontend {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-md navbar-light main-nav">
-  <a class="navbar-brand d-md-none" href="{{ url_for('index') }}">Mountain House</a>
-  
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  
-  <div class="collapse navbar-collapse" id="navbarResponsive">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home</a>
-      </li>
-    </ul>
-    <a class="navbar-brand mx-auto d-none d-md-block" href="{{ url_for('index') }}">Mountain House</a>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/project_description">Project Description</a>
-      </li>
-    </ul>
+<nav class="navbar navbar-expand-md navbar-light">
+  <div class="container-fluid">
+      <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+          </li>
+      </ul>
+
+      <a class="navbar-brand mx-auto" href="{{ url_for('index') }}">Mountain House</a>
+
+      <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" href="/project_description">Project Description</a>
+          </li>
+      </ul>
   </div>
 </nav>
+
+
 
 <div class="container">
   <div class="row">
       <div class="col">
-          <img src="{{ url_for('static', filename='img/Screenshot 2023-12-08 alle 15.31.55.png') }}" class="img-fluid" alt="Screenshot">
+          <img src="{{ url_for('static', filename='img/Screenshot 2023-12-10 alle 16.43.28.png') }}" class="img-fluid" alt="Screenshot">
       </div>
   </div>
 </div>
 
 
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-4">
-      <h2>Esplora le Alpi Italiane:</h2>
-    </div>
-    <div class="col-md-8">
-      <p>Benvenuti nel cuore pulsante delle Alpi italiane. Il nostro sito è la vostra bussola digitale per scoprire rifugi incantevoli e poco conosciuti nelle regioni di Lombardia, Piemonte e Friuli. Qui, la bellezza selvaggia delle montagne si unisce all'accoglienza calda dei rifugi alpini, offrendo un'esperienza di escursionismo e soggiorno unica. Che siate amanti dell'escursionismo, appassionati di natura o semplicemente in cerca di un rifugio lontano dal trambusto quotidiano, il nostro sito vi guida verso la scoperta di gemme nascoste, dove il tempo sembra fermarsi e la natura parla.</p>
-    </div>
-  </div>
-</div>
 
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-4">
-      <h2>Come funziona:</h2>
-    </div>
-    <div class="col-md-8">
-      <p>La ricerca del rifugio perfetto non è mai stata così semplice. Ecco come aiutiamo i nostri visitatori a trovare la loro prossima destinazione di montagna:</p>
-      <ul>
-        <li><strong>Scegli la Regione:</strong> Inizia selezionando Lombardia, Piemonte o Friuli. Ogni regione ha il suo fascino unico e rifugi da esplorare.</li>
-        <li><strong>Filtra le tue Preferenze:</strong> Usa i nostri filtri intuitivi per specificare le tue esigenze. Che tu stia cercando rifugi adatti a famiglie, opzioni pet-friendly, o rifugi con specifici servizi, abbiamo qualcosa per tutti.</li>
-        <li><strong>Esplora e Scopri:</strong> Naviga tra le nostre liste dettagliate complete di fotografie, recensioni e informazioni essenziali. Conoscere ogni rifugio prima di partire non è mai stato così facile.</li>
-        <li><strong>Pianifica la Tua Avventura:</strong> Una volta trovato il rifugio ideale, forniamo tutte le informazioni necessarie per raggiungerlo, oltre a suggerimenti su sentieri escursionistici e attività nelle vicinanze.</li>
-      </ul>
-    </div>
-  </div>
-</div>
+<section lass="py-3 py-md-5 py-xl-8">
+  <h2 class="mt-4 mb-4 display-5 text-center">🔎 Italian Alps</h2>
+  <p class="text-secondary mb-5 text-center lead fs-4">Discover with us the Italian Alps and their hidden refuges in Piedmont. Join us for unique hiking and lodging experiences, away from the daily chaos, in the serenity of the mountains.</p>
+  <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+</section>
 
-<div class="container mt-5">
-  <div class="row mb-4">
-    <div class="col-md-6">
-      <h3>Rifugi in Piemonte</h3>
-      <p>Scopri il Piemonte, dove i rifugi si annidano tra le Alpi Occidentali. Questa regione offre un mix unico di natura selvaggia, tradizioni culinarie e percorsi escursionistici per un'esperienza autentica e memorabile.</p>
-    </div>
-    <div class="col-md-6 d-flex align-items-center">
-      <a href="{{ url_for('piemonte') }}" class="btn btn-primary btn-lg">Piemonte</a>
+
+<section lass="py-md-5 py-xl-8">
+  <h2 class="mt-2 mb-4 display-5 text-center">❓How it Works</h2>
+  <p class="text-secondary mb-5 text-center lead fs-4">Our goal is to make your search for the perfect refuge simple and quick. Here's how you can use the site: Easy Search: Enter keywords in the search bar to find refuges in Piedmont. You can search by refuge name or location. Custom Filters: Use our filters to refine your search. You can select specific features of the refuges you prefer, such as type of refuge, services offered, and location. This will help you find exactly what you're looking for. Targeted Results: After applying the filters, we'll present you with a list of refuges that match your needs. You'll be able to see important details about each refuge to facilitate your choice. Start your search now and find the ideal refuge for your next adventure in Piedmont!</p>
+  <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+</section>
+
+
+<section lass="py-md-5 py-xl-8">
+  <h2 class="mt-2 mb-4 display-5 text-center">🏔️ Refuges in Piedmont</h2>
+  <p class="text-secondary mb-5 text-center lead fs-4">Discover Piedmont, where refuges nestle among the Western Alps. This region offers a unique mix of wilderness, culinary traditions, and hiking trails for an authentic and memorable experience.</p>
+</section>
+
+<section>
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-auto d-flex align-items-center">
+      <a href="{{ url_for('piemonte') }}" class="btn btn-primary btn-lg btn-rounded" data-mdb-ripple-init>Piedmont</a>
     </div>
   </div>
-</div>
+</section>
+
+
+
+
+
 {% endblock %}

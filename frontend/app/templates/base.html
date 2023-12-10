@@ -33,13 +33,60 @@
           padding: 100px 0;
       }
 
-      .main-nav {
-          position: sticky;
-          top: 0;
-          background-color: transparent;
-          transition: background-color 0.3s;
-          z-index: 999;
+
+
+
+
+
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: rgb(255, 253, 253); /* Imposta lo sfondo a bianco */
+        z-index: 1000; /* Assicurati che la navbar rimanga sopra gli altri elementi */
       }
+
+      body {
+        padding-top: 80px; /* Aggiungi un padding in alto al body per evitare che il contenuto sia coperto dalla navbar */
+      }
+
+      .navbar-nav {
+        flex-grow: 1;
+        justify-content: center;
+      }
+
+      .navbar .container-fluid {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar-brand {
+        flex-grow: 1;
+        text-align: center;
+      }
+
+
+
+
+
+
+
+      .btn-large {
+        padding: 150px 160px; /* Increased padding for larger size */
+        font-size: 20px; /* Larger font size */
+        border-radius: 80px; /* Slightly more rounded corners for proportion */
+        box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2); /* Adjusted box shadow for depth */
+        transition: all 0.3s; /* Smooth transition for hover effect */
+      }
+
+      .btn-large:hover, .btn-large:focus {
+        box-shadow: 0 8px 15px 0 rgba(0,0,0,0.3); /* Larger shadow on hover */
+        transform: translateY(-3px); /* Slight lift on hover */
+      }
+
+
 
       .card-img-top {
        height: 200px; /* or any other fixed height */
@@ -57,16 +104,17 @@
        display: flex;
        flex-direction: column;
        justify-content: space-between; /* This spreads out the content */
-      }
-
-      .card-body {
        flex-grow: 1;
       }
 
-  </style>
+
+
+    </style>
 
     <title>{% block title %} {% endblock %}</title>
   </head>
+
+
   <body>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

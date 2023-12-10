@@ -3,6 +3,33 @@
 {% block title %} Project Description - H-Farm Group Project {% endblock %}
 
 {% block content %}
+
+
+<nav class="navbar navbar-expand-md navbar-light">
+    <div class="container-fluid"> <!-- o 'container' per un layout più contenuto -->
+        <!-- Sinistra: Home -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+        </ul>
+  
+        <!-- Centro: Mountain House -->
+        <a class="navbar-brand mx-auto" href="{{ url_for('index') }}">Mountain House</a>
+  
+        <!-- Destra: Project Description -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/project_description">Project Description</a>
+            </li>
+        </ul>
+    </div>
+  </nav>
+
+
+
+
+
 <div class="container-fluid">
     <!-- Project File Structure -->
     <section lass="py-3 py-md-5 py-xl-8">
@@ -339,7 +366,7 @@
                         <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}" alt="Team Member 1">
                         <div class="card-body">
                             <h5 class="card-title">Luca Barattini</h5>
-                            <p class="card-text">CEO 888528</p>
+                            <p class="card-text">CEO - 888528</p>
                         </div>
                     </div>
                 </div>

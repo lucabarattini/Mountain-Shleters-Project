@@ -98,6 +98,12 @@
         <h2 class="mt-4 mb-4 display-5 text-center">🚨 Most Important concepts:</h2>
         <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient individuals. You will love to collaborate with us.</p>
         <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+
+
+        <section class="py-3 py-md-5 py-xl-8">
+            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">1st section</h2>
+        </section>
+
         <pre><code class="language-python mb-5">
             def scrape_shelter_urls():
                 cache_file = "backend/app/urls_cache.txt"
@@ -130,6 +136,12 @@
 
                 return urls
         </code></pre>
+
+
+        <section class="py-3 py-md-5 py-xl-8">
+            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">2nd section</h2>
+        </section>
+
         <pre><code class="language-python mb-5">
             def scrape_shelter_details(url):
                 details = {}
@@ -161,6 +173,12 @@
             
                 return details
         </code></pre>
+
+
+        <section class="py-3 py-md-5 py-xl-8">
+            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">3th section</h2>
+        </section>
+
         <pre><code class="language-python mb-5">
             # Read the second CSV
             shelters = pd.read_csv(file_path_shelters)
@@ -183,6 +201,12 @@
 
             merged_data['Description'] = merged_data['Description'].fillna('No description available')
         </code></pre>
+
+
+        <section class="py-3 py-md-5 py-xl-8">
+            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">4th section</h2>
+        </section>
+
         <pre><code class="language-python mb-5">
             def get_coordinates(address):
             """
@@ -203,6 +227,12 @@
                 print(f"Error connecting to Geocoding API: {e}")
                 return None, None
         </code></pre>
+
+
+        <section class="py-3 py-md-5 py-xl-8">
+            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">5th section</h2>
+        </section>
+
         <pre><code class="language-python mb-5">
             @app.get('/cleaned_csv_show')
             async def read_and_return_cleaned_csv(
@@ -234,6 +264,12 @@
                 # Convert the DataFrame to a dictionary for processing
                 cleaned_data = cleaned_df.to_dict(orient='records')
         </code></pre>
+
+
+        <section class="py-3 py-md-5 py-xl-8">
+            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">6th section</h2>
+        </section>
+
         <pre><code class="language-python mb-5">
             # Apply filters
             filtered_data = []
@@ -302,8 +338,8 @@
                     <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
                         <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}" alt="Team Member 1">
                         <div class="card-body">
-                            <h5 class="card-title">Team Member 1</h5>
-                            <p class="card-text">Role/Position</p>
+                            <h5 class="card-title">Luca Barattini</h5>
+                            <p class="card-text">CEO 888528</p>
                         </div>
                     </div>
                 </div>
@@ -311,8 +347,8 @@
                     <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
                         <img class="card-img-top" src="{{ url_for('static', filename='img/Profile_Pic.JPG') }}" alt="Team Member 1">
                         <div class="card-body">
-                            <h5 class="card-title">Team Member 1</h5>
-                            <p class="card-text">Role/Position</p>
+                            <h5 class="card-title">Tommaso Stradiotto</h5>
+                            <p class="card-text">861386</p>
                         </div>
                     </div>
                 </div>
@@ -320,8 +356,8 @@
                     <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
                         <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_8081.JPG') }}" alt="Team Member 1">
                         <div class="card-body">
-                            <h5 class="card-title">Team Member 1</h5>
-                            <p class="card-text">Role/Position</p>
+                            <h5 class="card-title">Mirela Ceban</h5>
+                            <p class="card-text">887575</p>
                         </div>
                     </div>
                 </div>
@@ -329,8 +365,8 @@
                     <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
                         <img class="card-img-top" src="{{ url_for('static', filename='img/Screenshot 2023-12-01 alle 16.06.52.png') }}" alt="Team Member 1">
                         <div class="card-body">
-                            <h5 class="card-title">Team Member 1</h5>
-                            <p class="card-text">Role/Position</p>
+                            <h5 class="card-title">Pietro Di Curzio</h5>
+                            <p class="card-text">889052</p>
                         </div>
                     </div>
                 </div>
@@ -338,8 +374,8 @@
                     <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
                         <img class="card-img-top" src="{{ url_for('static', filename='img/8111fe08-1894-41fb-b6f5-674d57639139.jpg') }}" alt="Team Member 1">
                         <div class="card-body">
-                            <h5 class="card-title">Team Member 1</h5>
-                            <p class="card-text">Role/Position</p>
+                            <h5 class="card-title">Manuel Okoye</h5>
+                            <p class="card-text">891815</p>
                         </div>
                     </div>
                 </div>

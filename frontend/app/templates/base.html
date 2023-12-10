@@ -40,6 +40,29 @@
           transition: background-color 0.3s;
           z-index: 999;
       }
+
+      .card-img-top {
+       height: 200px; /* or any other fixed height */
+       object-fit: cover; /* Covers the height and maintains aspect ratio */
+       width: 100%;
+      }
+
+      .card {
+       display: flex;
+       flex-direction: column;
+       height: 100%;
+      }
+
+      .card-body {
+       display: flex;
+       flex-direction: column;
+       justify-content: space-between; /* This spreads out the content */
+      }
+
+      .card-body {
+       flex-grow: 1;
+      }
+
   </style>
 
     <title>{% block title %} {% endblock %}</title>

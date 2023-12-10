@@ -3,29 +3,27 @@
 {% block title %} Homepage of Frontend {% endblock %}
 
 {% block content %}
-<div class="container-fluid mt-5 mb-5">
-  <nav class="navbar navbar-expand-md navbar-light">
-    <a class="navbar-brand d-md-none" href="{{ url_for('index') }}">Mountain House</a>
-    
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-      </ul>
-      <a class="navbar-brand mx-auto d-none d-md-block" href="{{ url_for('index') }}">Mountain House</a>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/project_description">Project Description</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</div>
+<nav class="navbar navbar-expand-md navbar-light main-nav">
+  <a class="navbar-brand d-md-none" href="{{ url_for('index') }}">Mountain House</a>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+    </ul>
+    <a class="navbar-brand mx-auto d-none d-md-block" href="{{ url_for('index') }}">Mountain House</a>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/project_description">Project Description</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 <div class="container">
   <div class="row">
@@ -65,14 +63,11 @@
 </div>
 
 <div class="container mt-5">
-  <!-- Prima riga per il Piemonte -->
   <div class="row mb-4">
-    <!-- Colonna di sinistra con il testo per il Piemonte -->
     <div class="col-md-6">
       <h3>Rifugi in Piemonte</h3>
       <p>Scopri il Piemonte, dove i rifugi si annidano tra le Alpi Occidentali. Questa regione offre un mix unico di natura selvaggia, tradizioni culinarie e percorsi escursionistici per un'esperienza autentica e memorabile.</p>
     </div>
-    <!-- Colonna di destra con il pulsante per il Piemonte -->
     <div class="col-md-6 d-flex align-items-center">
       <a href="{{ url_for('piemonte') }}" class="btn btn-primary btn-lg">Piemonte</a>
     </div>

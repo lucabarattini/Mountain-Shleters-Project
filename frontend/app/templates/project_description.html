@@ -98,34 +98,167 @@
         <h2 class="mt-4 mb-4 display-5 text-center">🚨 Most Important concepts:</h2>
         <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient individuals. You will love to collaborate with us.</p>
         <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
-        <div class="row">
-            <div class="col-12 col-lg-8">
-              <!--start card-->
-              <div class="card-wrapper card-space">
-                <div class="card card-bg card-big border-bottom-card">
-                  <div class="flag-icon"></div>
-                  <div class="etichetta">
-                    <svg class="icon">
-                      <use href="{{ url_for('static', filename='svg/ruler-svgrepo-com.svg')}}"></use>
-                    </svg>
-                    <span>Sviluppo</span>
-                  </div>
-                  <div class="card-body">
-                    <h3 class="card-title h5 ">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor…</h3>
-                    <p class="card-text font-serif">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <a class="read-more" href="#">
-                      <span class="text">Leggi di più</span>
-                      <span class="visually-hidden">su Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor…</span>
-                      <svg class="icon">
-                        <use href="/bootstrap-italia/dist/svg/sprites.svg#it-arrow-right"></use>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <!--end card-->
-            </div>
-          </div>
+        <pre><code class="language-python mb-5">
+            def scrape_shelter_urls():
+                cache_file = "backend/app/urls_cache.txt"
+
+                if os.path.exists(cache_file):
+                    print("Loading URLs from cache...")
+                    with open(cache_file, 'r') as file:
+                        urls = file.read().splitlines()
+                    return urls
+
+                urls = []
+                base_url = "https://www.escursionismo.it/rifugi-bivacchi/"
+                response = requests.get(base_url)
+                soup = BeautifulSoup(response.content, 'html.parser')
+                total_pages = int(soup.find_all('a', class_='page-numbers')[-2].text)
+
+                for page in tqdm(range(1, total_pages + 1), desc="Scraping Pages"):
+                    page_url = f"{base_url}page/{page}/" if page > 1 else base_url
+                    response = requests.get(page_url)
+                    soup = BeautifulSoup(response.content, 'html.parser')
+
+                    for div in soup.find_all('div', class_='profile-name'):
+                        a_tag = div.find('a')
+                        if a_tag and 'href' in a_tag.attrs:
+                            urls.append(a_tag['href'])
+
+                with open(cache_file, 'w') as file:
+                    for url in urls:
+                        file.write("%s\n" % url)
+
+                return urls
+        </code></pre>
+        <pre><code class="language-python mb-5">
+            def scrape_shelter_details(url):
+                details = {}
+            
+                try:
+                    response = requests.get(url)
+                    soup = BeautifulSoup(response.content, 'html.parser')
+            
+                    name_tag = soup.find('h3', style="margin-top: 25px")
+                    details['Name'] = name_tag.text.strip() if name_tag else 'Name not found'
+            
+                    description_tag = soup.find('div', class_='descrizione-lunga')
+                    details['Description'] = description_tag.text.strip() if description_tag else 'Description not found'
+            
+                    # Find all 'td' elements and iterate over them
+                    details['Latitude'], details['Longitude'] = 'Coordinates not found', 'Coordinates not found'
+                    for td in soup.find_all('td'):
+                        if 'Lat:' in td.text and 'Long:' in td.text:
+                            coords = td.get_text(separator="|").split('|')
+                            if len(coords) >= 2:
+                                details['Latitude'] = coords[0].split(':')[1].strip()
+                                details['Longitude'] = coords[1].split(':')[1].strip()
+                            break
+            
+                except requests.exceptions.RequestException as e:
+                    details = {'Name': 'Request failed', 'Description': 'Request failed', 'Latitude': 'Request failed', 'Longitude': 'Request failed'}
+                except Exception as e:
+                    details = {'Name': 'Error occurred', 'Description': 'Error occurred', 'Latitude': 'Error occurred', 'Longitude': 'Error occurred'}
+            
+                return details
+        </code></pre>
+        <pre><code class="language-python mb-5">
+            # Read the second CSV
+            shelters = pd.read_csv(file_path_shelters)
+            # Convert 'Latitude' and 'Longitude' in shelters DataFrame to float
+            shelters['Latitude'] = pd.to_numeric(shelters['Latitude'], errors='coerce')
+            shelters['Longitude'] = pd.to_numeric(shelters['Longitude'], errors='coerce')
+
+            # Custom function to find partial, case-insensitive match
+            def partial_match(denominazione, df_shelters):
+                for index, row in df_shelters.iterrows():
+                    if denominazione.lower() in row['Name'].lower():
+                        return row.name
+                return None
+
+            # Apply the custom function to find a merge key
+            data['merge_key'] = data['DENOMINAZIONE'].apply(lambda x: partial_match(x, shelters))
+
+            # Merge the dataframes
+            merged_data = pd.merge(data, shelters, left_on='merge_key', right_index=True, how='left')
+
+            merged_data['Description'] = merged_data['Description'].fillna('No description available')
+        </code></pre>
+        <pre><code class="language-python mb-5">
+            def get_coordinates(address):
+            """
+            Convert an address to geographic coordinates using Google's Geocoding API.
+            """
+            base_url = "https://maps.googleapis.com/maps/api/geocode/json"
+            params = {"address": address, "key": GOOGLE_API_KEY}
+            try:
+                response = requests.get(base_url, params=params)
+                response.raise_for_status()  # This will raise an error for non-200 responses
+                data = response.json()
+                if data['status'] != 'OK':
+                    print(f"Error in Geocoding API response: {data['status']}")
+                    return None, None
+                location = data['results'][0]['geometry']['location']
+                return location['lat'], location['lng']
+            except requests.exceptions.RequestException as e:
+                print(f"Error connecting to Geocoding API: {e}")
+                return None, None
+        </code></pre>
+        <pre><code class="language-python mb-5">
+            @app.get('/cleaned_csv_show')
+            async def read_and_return_cleaned_csv(
+                bagni: str = Query(None), 
+                camere: str = Query(None), 
+                letti: str = Query(None), 
+                provincia: str = Query(None), 
+                comune: str = Query(None), 
+                location: str = Query(None), 
+                range_km: float = Query(None)
+            ):
+                # CSV file paths
+                regpie_csv_path = 'app/regpie-RifugiOpenDa_2296-all.csv'
+                shelters_csv_path = 'app/mountain_shelters.csv'
+
+                # Process and merge the CSV files
+                cleaned_df = cleancsv1(regpie_csv_path, shelters_csv_path)
+
+                # Get user coordinates
+                user_lat, user_lng = None, None
+                if location:
+                    user_lat, user_lng = get_coordinates(location)
+                    if user_lat is None or user_lng is None:
+                        print("Invalid location or unable to get coordinates.")
+                        raise HTTPException(status_code=400, detail="Invalid location")
+                    else:
+                        print(f"User coordinates: Latitude = {user_lat}, Longitude = {user_lng}")
+
+                # Convert the DataFrame to a dictionary for processing
+                cleaned_data = cleaned_df.to_dict(orient='records')
+        </code></pre>
+        <pre><code class="language-python mb-5">
+            # Apply filters
+            filtered_data = []
+            for item in cleaned_data:
+                if bagni and str(item.get('BAGNI', '')) != bagni:
+                    continue
+                if camere and str(item.get('CAMERE', '')) != camere:
+                    continue
+                if letti and str(item.get('LETTI', '')) != letti:
+                    continue
+                if provincia and item.get('PROVINCIA', '').lower() != provincia.lower():
+                    continue
+                if comune and item.get('COMUNE', '').lower() != comune.lower():
+                    continue
+
+                # Location-based filtering
+                if user_lat is not None and user_lng is not None and 'Latitude' in item and 'Longitude' in item:
+                    item_lat, item_lng = item['Latitude'], item['Longitude']
+                    distance = haversine((user_lat, user_lng), (item_lat, item_lng))
+                    print(f"Distance from {item['DENOMINAZIONE']} to user location: {distance} km")
+                    if distance > range_km:
+                        continue
+
+                filtered_data.append(item)
+        </code></pre>
     </section>
 
     <section class="section section-image rounded-image-container" aria-describedby="titleEx5" style="background-image: url('https://picsum.photos/1280/720?image=811'); background-size: cover; background-position: center; color: white;">
@@ -176,7 +309,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                        <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}" alt="Team Member 1">
+                        <img class="card-img-top" src="{{ url_for('static', filename='img/Profile_Pic.JPG') }}" alt="Team Member 1">
                         <div class="card-body">
                             <h5 class="card-title">Team Member 1</h5>
                             <p class="card-text">Role/Position</p>
@@ -185,7 +318,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                        <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}" alt="Team Member 1">
+                        <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_8081.JPG') }}" alt="Team Member 1">
                         <div class="card-body">
                             <h5 class="card-title">Team Member 1</h5>
                             <p class="card-text">Role/Position</p>
@@ -194,15 +327,26 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                        <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}" alt="Team Member 1">
+                        <img class="card-img-top" src="{{ url_for('static', filename='img/Screenshot 2023-12-01 alle 16.06.52.png') }}" alt="Team Member 1">
                         <div class="card-body">
                             <h5 class="card-title">Team Member 1</h5>
                             <p class="card-text">Role/Position</p>
                         </div>
                     </div>
                 </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                        <img class="card-img-top" src="{{ url_for('static', filename='img/8111fe08-1894-41fb-b6f5-674d57639139.jpg') }}" alt="Team Member 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Team Member 1</h5>
+                            <p class="card-text">Role/Position</p>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>
 </div>
+
 {% endblock %}

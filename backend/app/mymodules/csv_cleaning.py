@@ -1,7 +1,16 @@
 import pandas as pd
 import numpy as np
+import os
 
 def cleancsv1(file_path_regpie, file_path_shelters, delimiter=';'):
+    file_path_shelters = 'app/mountain_shelters.csv'
+    
+    # Extract the directory from file_path_shelters
+    directory = os.path.dirname(file_path_shelters)
+
+    # Define the output file with the same directory as file_path_shelters
+    output_file = os.path.join(directory, 'merged_data.csv')
+
     # Read and clean the first CSV
     data = pd.read_csv(file_path_regpie, delimiter=delimiter)
 
@@ -18,7 +27,9 @@ def cleancsv1(file_path_regpie, file_path_shelters, delimiter=';'):
     # Moving 'Denominazione Struttura' to index 0
     denominazione_col = data.pop('DENOMINAZIONESTRUTTURA')
     data.insert(0, 'DENOMINAZIONE', denominazione_col)
-
+    # Drop any row with 'DENOMINAZIONE' value "camposecco"
+    data = data[data['DENOMINAZIONE'].str.lower() != "camposecco"]
+    
     # Drop duplicate entries based on 'DENOMINAZIONE'
     data.drop_duplicates(subset='DENOMINAZIONE', keep='first', inplace=True)
 
@@ -67,10 +78,14 @@ def cleancsv1(file_path_regpie, file_path_shelters, delimiter=';'):
     # Replace 'Latitude' and 'Longitude' with your actual coordinate column names
     merged_data = merged_data.dropna(subset=['Latitude', 'Longitude'])
     
+    # Save the merged DataFrame to a CSV file in the same directory
+    merged_data.to_csv(output_file, index=False)
+    print(f"File '{output_file}' saved successfully.")
+
     return merged_data
 
 # # Usage
 # file_path_regpie = 'app/regpie-RifugiOpenDa_2296-all.csv'  # Update with your file path
-# file_path_shelters = 'app/mountain_shelters.csv'  # Update with your file path
+# Update with your file path
 # merged_data = cleancsv1(file_path_regpie, file_path_shelters)
 # print(merged_data)

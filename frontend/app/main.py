@@ -20,33 +20,6 @@ class QueryForm(FlaskForm):
     person_name = StringField('Person Name:')
     submit = SubmitField('Get Birthday from FastAPI Backend')
 
-@app.context_processor
-def context_processor():
-    return dict(fetch_shelter_info=fetch_shelter_info)
-
-def fetch_shelter_info(shelter_name):
-    """
-    Fetch complete shelter info, including trail info and coordinates, from the backend.
-
-    Args:
-        shelter_name (str): Name of the shelter.
-
-    Returns:
-        dict: Data from the backend.
-    """
-    backend_url = f'http://backend:80/check_shelter/{shelter_name}'
-    try:
-        response = requests.get(backend_url)
-        response.raise_for_status()
-        result = response.json()
-        # Ensure 'data' key is always present
-        if 'data' not in result:
-            result['data'] = {}
-        return result
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching information from backend: {e}")
-        return {'found': False, 'data': {}}
-
 @app.route('/')
 def index():
     """
@@ -76,26 +49,6 @@ def piemonte():
     cleaned_data = response.json()
 
     return render_template('piemonte.html', cleaned_data=cleaned_data)
-
-@app.route('/lombardia')
-def lombardia():
-    """
-    Render the Lombardia page.
-
-    Returns:
-        str: Rendered HTML content for the Lombardia page.
-    """
-    return render_template('lombardia.html')
-
-@app.route('/friuli')
-def friuli():
-    """
-    Render the Friuli page.
-
-    Returns:
-        str: Rendered HTML content for the Friuli page.
-    """
-    return render_template('friuli.html')
 
 @app.route('/project_description')
 def project_description():

@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 
 def scrape_shelter_urls():
@@ -53,7 +54,14 @@ def scrape_shelter_details(url):
         description_tag = soup.find('div', class_='descrizione-lunga')
         details['Description'] = description_tag.text.strip() if description_tag else 'Description not found'
 
-        # Find all 'td' elements and iterate over them
+        # Extracting region information
+        details['Region'] = 'Region not found'
+        for td in soup.find_all('td'):
+            if td.text.strip() == 'Piemonte':
+                details['Region'] = 'Piemonte'
+                break
+
+        # Extracting coordinates
         details['Latitude'], details['Longitude'] = 'Coordinates not found', 'Coordinates not found'
         for td in soup.find_all('td'):
             if 'Lat:' in td.text and 'Long:' in td.text:
@@ -64,20 +72,33 @@ def scrape_shelter_details(url):
                 break
 
     except requests.exceptions.RequestException as e:
-        details = {'Name': 'Request failed', 'Description': 'Request failed', 'Latitude': 'Request failed', 'Longitude': 'Request failed'}
+        details = {'Name': 'Request failed', 'Description': 'Request failed', 'Latitude': 'Request failed', 'Longitude': 'Request failed', 'Region': 'Request failed'}
     except Exception as e:
-        details = {'Name': 'Error occurred', 'Description': 'Error occurred', 'Latitude': 'Error occurred', 'Longitude': 'Error occurred'}
+        details = {'Name': 'Error occurred', 'Description': 'Error occurred', 'Latitude': 'Error occurred', 'Longitude': 'Error occurred', 'Region': 'Error occurred'}
 
     return details
+
+def process_url(url):
+    # This function will process each URL
+    details = scrape_shelter_details(url)
+    if details['Region'] == 'Piemonte':
+        return details
+    return None
 
 def main():
     all_shelter_urls = scrape_shelter_urls()
 
-    # Process all shelter URLs
+    # Using ThreadPoolExecutor to scrape in parallel
     all_shelter_details = []
-    for url in tqdm(all_shelter_urls, desc="Scraping Shelter Details"):
-        details = scrape_shelter_details(url)
-        all_shelter_details.append(details)
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        # Submit all the URLs to the executor
+        future_to_url = {executor.submit(process_url, url): url for url in all_shelter_urls}
+
+        # Use tqdm for progress tracking
+        for future in tqdm(as_completed(future_to_url), total=len(all_shelter_urls), desc="Scraping Shelter Details"):
+            result = future.result()
+            if result:
+                all_shelter_details.append(result)
 
     # Save to CSV
     csv_file = 'backend/app/mountain_shelters.csv'
@@ -87,4 +108,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

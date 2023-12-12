@@ -23,4 +23,4 @@ As University students, this journey started as a College Project with academic 
 If you have suggestions or improvements, please feel free to fork the repository and submit a pull request.
 
 ## Contact
-For any inquiries or further assistance, Project Lead [luca.barattini@student.h-farm.com]
+For any inquiries or further assistance, Project Lead [luca.barattini@student.h-farm.com] test

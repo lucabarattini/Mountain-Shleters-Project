@@ -3,38 +3,34 @@
 {% block title %} Project Description - H-Farm Group Project {% endblock %}
 
 {% block content %}
-
-
 <nav class="navbar navbar-expand-md navbar-light">
-    <div class="container-fluid"> <!-- o 'container' per un layout più contenuto -->
-        <!-- Sinistra: Home -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-        </ul>
-  
-        <!-- Centro: Mountain House -->
-        <a class="navbar-brand mx-auto" href="{{ url_for('index') }}">Mountain House</a>
-  
-        <!-- Destra: Project Description -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/project_description">Project Description</a>
-            </li>
-        </ul>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Mountain House</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ 'active' if request.path == '/' else '' }}">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item {{ 'active' if request.path == '/project_description' else '' }}">
+                    <a class="nav-link" href="/project_description">Project Description</a>
+                </li>
+                <!-- Add other nav items similarly -->
+            </ul>
+        </div>
     </div>
-  </nav>
-
-
-
-
+</nav>
 
 <div class="container-fluid">
     <!-- Project File Structure -->
     <section lass="py-3 py-md-5 py-xl-8">
         <h2 class="mt-5 mb-4 display-5 text-center">📂 Project File Structure</h2>
-        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient individuals. You will love to collaborate with us.</p>
+        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient
+            individuals. You will love to collaborate with us.</p>
         <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
         <div class="d-flex justify-content-center">
             <!-- Backend File Structure -->
@@ -43,33 +39,31 @@
                     <h3 class="card-title">Backend</h3>
                     <ul>
                         <li>.vscode</li>
+                        <li>Dockerfile</li>
+                        <li>requirements.txt</li>
                         <li>app
                             <ul>
                                 <li>__pycache__</li>
                                 <li>mymodules
                                     <ul>
-                                        <li>__pycache__</li>
                                         <li>__init__.py</li>
                                         <li>birthdays.py</li>
-                                        <li>csv_cleaning_2.py</li>
-                                        <li>csv_cleaning_3.py</li>
                                         <li>csv_cleaning.py</li>
                                         <li>scrape.py</li>
                                     </ul>
                                 </li>
-                                <li>__init__.py</li>
                                 <li>main.py</li>
+                                <li>merged_data.csv</li>
                                 <li>mountain_shelters.csv</li>
                                 <li>regpie-RifugiOpenDa_2296-all.csv</li>
                                 <li>Rifugi_Alpini_Escursionistici.csv</li>
                                 <li>Strutture_Ricettive_Alberghiere_e_extra-alberghiere.csv</li>
                                 <li>urls_cache.txt</li>
-                                <li>Dockerfile</li>
-                                <li>requirements.txt</li>
                             </ul>
                         </li>
                     </ul>
                 </div>
+                
             </div>
             <!-- Frontend File Structure -->
             <div class="card ms-3 mb-5" style="flex-grow: 1;">
@@ -77,19 +71,17 @@
                     <h3 class="card-title">Frontend</h3>
                     <ul>
                         <li>.vscode</li>
+                        <li>Dockerfile</li>
+                        <li>requirements.txt</li>
                         <li>app
                             <ul>
                                 <li>__pycache__</li>
                                 <li>static
                                     <ul>
-                                        <li>img
+                                        <li>img</li>
+                                        <li>js
                                             <ul>
-                                                <li>IMG_6780 copy.jpeg</li>
-                                                <li>Profile_Pic.JPG</li>
-                                                <li>rifugio1.jpg</li>
-                                                <li>rifugio2.jpg</li>
-                                                <li>rifugio3.jpg</li>
-                                                <li>tre-cime-lavaredo-panorama-hd.jpg</li>
+                                                <li>app.js</li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -105,169 +97,327 @@
                                     </ul>
                                 </li>
                                 <li>main.py</li>
-                                <li>Dockerfile</li>
-                                <li>requirements.txt</li>
                             </ul>
                         </li>
                     </ul>
-                </div>
+                </div>                
             </div>
     </section>
 
     <section lass="py-3 py-md-5 py-xl-8">
         <h2 class="mt-4 mb-4 display-5 text-center">🌌 The big hole</h2>
-        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient individuals. You will love to collaborate with us.</p>
+        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient
+            individuals. You will love to collaborate with us.</p>
         <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+        <!-- Carousel start -->
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-inner">
+                <!-- Carousel items -->
+                <div class="carousel-item active">
+                    <img src="{{ url_for('static', filename='img/1.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/2.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/3.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/4.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/5.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/6.jpg') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/7.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/8.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/9.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/10.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/11.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/12.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/13.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/14.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/15.png') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/16.png') }}" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <!-- Carousel end -->
     </section>
-
-    <!-- How to Use the Website -->
     <section lass="py-3 py-md-5 py-xl-8">
-        <h2 class="mt-4 mb-4 display-5 text-center">📜 Insights</h2>
-        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient individuals. You will love to collaborate with us.</p>
-        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
-    </section>
-
-    <section lass="py-3 py-md-5 py-xl-8">
-        <h2 class="mt-4 mb-4 display-5 text-center">👀 Assumptions</h2>
+        <h2 class="mt-5 mb-5 display-5 text-center">👀 Assumptions</h2>
         <div class="container mt-4">
-            <h2 class="mb-3">Project Assumptions</h2>
             <div class="list-group">
                 <div class="list-group-item">
-                    <strong>Data File Availability:</strong> Assumes the presence of 'regpie-RifugiOpenDa_2296-all.csv' in the repository.
+                    <strong>Data File Availability:</strong> Assumes the presence of 'regpie-RifugiOpenDa_2296-all.csv'
+                    in the repository.
                 </div>
                 <div class="list-group-item">
-                    <strong>Script Execution Time Without Key Data Files:</strong> Execution time may exceed one hour without 'merged_data.csv' and 'mountain_shelters.csv'.
+                    <strong>Script Execution Time Without Key Data Files:</strong> Execution time may exceed one hour
+                    without 'merged_data.csv' and 'mountain_shelters.csv'.
                 </div>
                 <div class="list-group-item">
-                    <strong>Data Freshness of 'mountain_shelters.csv':</strong> Data reflects shelter information as of December 7, 2023, from escursionismo.it.
+                    <strong>Data Freshness of 'mountain_shelters.csv':</strong> Data reflects shelter information as of
+                    December 7, 2023, from escursionismo.it.
                 </div>
                 <div class="list-group-item">
-                    <strong>Geographical Assumption for Range Limitation:</strong> A maximum range of 200 km is set, based on the aerial distance assessment in Piemonte.
+                    <strong>Geographical Assumption for Range Limitation:</strong> A maximum range of 200 km is set,
+                    based on the aerial distance assessment in Piemonte.
                 </div>
                 <div class="list-group-item">
-                    <strong>Distance Calculation Methodology:</strong> Uses the Haversine formula, which may not reflect actual road distances.
+                    <strong>Distance Calculation Methodology:</strong> Uses the Haversine formula, which may not reflect
+                    actual road distances.
                 </div>
                 <div class="list-group-item">
-                    <strong>Repository Privacy and API Key Security:</strong> A private repository is used to secure the Google Maps API key from public exposure.
+                    <strong>Repository Privacy and API Key Security:</strong> A private repository is used to secure the
+                    Google Maps API key from public exposure.
                 </div>
                 <div class="list-group-item">
-                    <strong>Choice Against API Key Encryption:</strong> Opted for repository privacy over encryption due to time constraints and project scope.
+                    <strong>Choice Against API Key Encryption:</strong> Opted for repository privacy over encryption due
+                    to time constraints and project scope.
                 </div>
             </div>
         </div>
     </section>
 
     <section lass="py-3 py-md-5 py-xl-8">
-        <h2 class="mt-4 mb-4 display-5 text-center">🚨 Most Important concepts:</h2>
-        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient individuals. You will love to collaborate with us.</p>
-        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
-
-
+        <h2 class="mt-5 mb-5 display-5 text-center">🚨 Most Important concepts:</h2>
         <section class="py-3 py-md-5 py-xl-8">
-            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">Mirella - Scraping 1st part</h2>
+            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">Mirela Ceban</h2>
         </section>
 
         <pre><code class="language-python mb-5">
-            def scrape_shelter_urls():
-                cache_file = "backend/app/urls_cache.txt"
+        def scrape_shelter_urls():
+            """
+            Scrapes all shelter URLs from 'https://www.escursionismo.it/rifugi-bivacchi/'.
+            Utilizes caching to store and retrieve the URLs, reducing the need for repeated scraping.
+            The cache is stored in 'backend/app/urls_cache.txt'.
+            """
+            cache_file = "backend/app/urls_cache.txt"
 
-                if os.path.exists(cache_file):
-                    print("Loading URLs from cache...")
-                    with open(cache_file, 'r') as file:
-                        urls = file.read().splitlines()
-                    return urls
-
-                urls = []
-                base_url = "https://www.escursionismo.it/rifugi-bivacchi/"
-                response = requests.get(base_url)
-                soup = BeautifulSoup(response.content, 'html.parser')
-                total_pages = int(soup.find_all('a', class_='page-numbers')[-2].text)
-
-                for page in tqdm(range(1, total_pages + 1), desc="Scraping Pages"):
-                    page_url = f"{base_url}page/{page}/" if page > 1 else base_url
-                    response = requests.get(page_url)
-                    soup = BeautifulSoup(response.content, 'html.parser')
-
-                    for div in soup.find_all('div', class_='profile-name'):
-                        a_tag = div.find('a')
-                        if a_tag and 'href' in a_tag.attrs:
-                            urls.append(a_tag['href'])
-
-                with open(cache_file, 'w') as file:
-                    for url in urls:
-                        file.write("%s\n" % url)
-
+            if os.path.exists(cache_file):
+                print("Loading URLs from cache...")
+                with open(cache_file, 'r') as file:
+                    urls = file.read().splitlines()
                 return urls
+
+            urls = []
+            base_url = "https://www.escursionismo.it/rifugi-bivacchi/"
+            response = requests.get(base_url)
+            soup = BeautifulSoup(response.content, 'html.parser')
+            total_pages = int(soup.find_all('a', class_='page-numbers')[-2].text)
+
+            for page in tqdm(range(1, total_pages + 1), desc="Scraping Pages"):
+                page_url = f"{base_url}page/{page}/" if page > 1 else base_url
+                response = requests.get(page_url)
+                soup = BeautifulSoup(response.content, 'html.parser')
+
+                for div in soup.find_all('div', class_='profile-name'):
+                    a_tag = div.find('a')
+                    if a_tag and 'href' in a_tag.attrs:
+                        urls.append(a_tag['href'])
+
+            with open(cache_file, 'w') as file:
+                for url in urls:
+                    file.write("%s\n" % url)
+
+            return urls
+
         </code></pre>
 
+        <pre><code class="language-python mb-5">
+        def scrape_shelter_details(url):
+            details = {}
 
-        <section class="py-3 py-md-5 py-xl-8">
-            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">Mirella - Scraping 2nd part</h2>
-        </section>
+            try:
+                response = requests.get(url)
+                soup = BeautifulSoup(response.content, 'html.parser')
+
+                name_tag = soup.find('h3', style="margin-top: 25px")
+                details['Name'] = name_tag.text.strip() if name_tag else 'Name not found'
+
+                description_tag = soup.find('div', class_='descrizione-lunga')
+                details['Description'] = description_tag.text.strip() if description_tag else 'Description not found'
+
+                # Extracting region information
+                details['Region'] = 'Region not found'
+                for td in soup.find_all('td'):
+                    if td.text.strip() == 'Piemonte':
+                        details['Region'] = 'Piemonte'
+                        break
+
+                # Extracting coordinates
+                details['Latitude'], details['Longitude'] = 'Coordinates not found', 'Coordinates not found'
+                for td in soup.find_all('td'):
+                    if 'Lat:' in td.text and 'Long:' in td.text:
+                        coords = td.get_text(separator="|").split('|')
+                        if len(coords) >= 2:
+                            details['Latitude'] = coords[0].split(':')[1].strip()
+                            details['Longitude'] = coords[1].split(':')[1].strip()
+                        break
+
+            except requests.exceptions.RequestException as e:
+                details = {'Name': 'Request failed', 'Description': 'Request failed', 'Latitude': 'Request failed', 'Longitude': 'Request failed', 'Region': 'Request failed'}
+            except Exception as e:
+                details = {'Name': 'Error occurred', 'Description': 'Error occurred', 'Latitude': 'Error occurred', 'Longitude': 'Error occurred', 'Region': 'Error occurred'}
+
+            return details
+        </code></pre>
 
         <pre><code class="language-python mb-5">
-            def scrape_shelter_details(url):
-                details = {}
-            
-                try:
-                    response = requests.get(url)
-                    soup = BeautifulSoup(response.content, 'html.parser')
-            
-                    name_tag = soup.find('h3', style="margin-top: 25px")
-                    details['Name'] = name_tag.text.strip() if name_tag else 'Name not found'
-            
-                    description_tag = soup.find('div', class_='descrizione-lunga')
-                    details['Description'] = description_tag.text.strip() if description_tag else 'Description not found'
-            
-                    # Find all 'td' elements and iterate over them
-                    details['Latitude'], details['Longitude'] = 'Coordinates not found', 'Coordinates not found'
-                    for td in soup.find_all('td'):
-                        if 'Lat:' in td.text and 'Long:' in td.text:
-                            coords = td.get_text(separator="|").split('|')
-                            if len(coords) >= 2:
-                                details['Latitude'] = coords[0].split(':')[1].strip()
-                                details['Longitude'] = coords[1].split(':')[1].strip()
-                            break
-            
-                except requests.exceptions.RequestException as e:
-                    details = {'Name': 'Request failed', 'Description': 'Request failed', 'Latitude': 'Request failed', 'Longitude': 'Request failed'}
-                except Exception as e:
-                    details = {'Name': 'Error occurred', 'Description': 'Error occurred', 'Latitude': 'Error occurred', 'Longitude': 'Error occurred'}
-            
+        def process_url(url):
+            # This function will process each URL
+            details = scrape_shelter_details(url)
+            if details['Region'] == 'Piemonte':
                 return details
+            return None
+
+        def main():
+            all_shelter_urls = scrape_shelter_urls()
+
+            # Using ThreadPoolExecutor to scrape in parallel
+            all_shelter_details = []
+            with ThreadPoolExecutor(max_workers=10) as executor:
+                # Submit all the URLs to the executor
+                future_to_url = {executor.submit(process_url, url): url for url in all_shelter_urls}
+
+                # Use tqdm for progress tracking
+                for future in tqdm(as_completed(future_to_url), total=len(all_shelter_urls), desc="Scraping Shelter Details"):
+                    result = future.result()
+                    if result:
+                        all_shelter_details.append(result)
+
+            # Save to CSV
+            csv_file = 'backend/app/mountain_shelters.csv'
+            df = pd.DataFrame(all_shelter_details)
+            df.to_csv(csv_file, index=False)
+            print(f"CSV file created at {csv_file} with shelter details.")
         </code></pre>
 
 
         <section class="py-3 py-md-5 py-xl-8">
-            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">Pietro</h2>
+            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">Pietro Di Curzio</h2>
         </section>
 
         <pre><code class="language-python mb-5">
+        def cleancsv1(file_path_regpie, file_path_shelters, delimiter=';'):
+            file_path_shelters = 'app/mountain_shelters.csv'
+            
+            # Extract the directory from file_path_shelters
+            directory = os.path.dirname(file_path_shelters)
+        
+            # Define the output file with the same directory as file_path_shelters
+            output_file = os.path.join(directory, 'merged_data.csv')
+        
+            # Read and clean the first CSV
+            data = pd.read_csv(file_path_regpie, delimiter=delimiter)
+        
+            # Convert column names to uppercase
+            data.columns = data.columns.str.upper()
+        
+            # Dropping columns
+            drop_indexes = [0, 1, 4, 5, 8, 9, 40] + list(range(11, 39))
+            data.drop(data.columns[drop_indexes], axis=1, inplace=True)
+            
+            # Dropping all columns after index 43
+            data = data.iloc[:, :8]
+        
+            # Moving 'Denominazione Struttura' to index 0
+            denominazione_col = data.pop('DENOMINAZIONESTRUTTURA')
+            data.insert(0, 'DENOMINAZIONE', denominazione_col)
+            # Drop any row with 'DENOMINAZIONE' value "camposecco"
+            data = data[data['DENOMINAZIONE'].str.lower() != "camposecco"]
+            
+            # Drop duplicate entries based on 'DENOMINAZIONE'
+            data.drop_duplicates(subset='DENOMINAZIONE', keep='first', inplace=True)
+        
+            # Rename the last three columns
+            new_column_names = {data.columns[5]: 'CAMERE', data.columns[6]: 'LETTI', data.columns[7]: 'BAGNI'}
+            data.rename(columns=new_column_names, inplace=True)
+        
+            # Fill NaN values in integer columns with 0 and then change the format to integer
+            integer_columns = ['CAMERE', 'LETTI', 'BAGNI']
+            data[integer_columns] = data[integer_columns].fillna(0).astype(int)
+        
+            # Replace NaN values with '---'
+            data.fillna('---', inplace=True)
+        
+            # Replace phone numbers that don't have at least 10 digits with '---'
+            data['TELEFONO'] = data['TELEFONO'].apply(lambda x: '---' if len(str(x)) < 10 else x)
+        
             # Read the second CSV
             shelters = pd.read_csv(file_path_shelters)
             # Convert 'Latitude' and 'Longitude' in shelters DataFrame to float
             shelters['Latitude'] = pd.to_numeric(shelters['Latitude'], errors='coerce')
             shelters['Longitude'] = pd.to_numeric(shelters['Longitude'], errors='coerce')
-
+        
             # Custom function to find partial, case-insensitive match
             def partial_match(denominazione, df_shelters):
                 for index, row in df_shelters.iterrows():
                     if denominazione.lower() in row['Name'].lower():
                         return row.name
                 return None
-
+        
             # Apply the custom function to find a merge key
             data['merge_key'] = data['DENOMINAZIONE'].apply(lambda x: partial_match(x, shelters))
-
+        
             # Merge the dataframes
             merged_data = pd.merge(data, shelters, left_on='merge_key', right_index=True, how='left')
-
+        
             merged_data['Description'] = merged_data['Description'].fillna('No description available')
+        
+            # Drop the temporary merge key and 'DENOMINAZIONE' column
+            merged_data.drop(['merge_key', 'DENOMINAZIONE'], axis=1, inplace=True)
+        
+            # Rename 'Name' from second DataFrame to 'DENOMINAZIONE' in the merged DataFrame
+            merged_data.rename(columns={'Name': 'DENOMINAZIONE'}, inplace=True)
+        
+            # Filter out rows where coordinates are NaN
+            # Replace 'Latitude' and 'Longitude' with your actual coordinate column names
+            merged_data = merged_data.dropna(subset=['Latitude', 'Longitude'])
+            
+            # Save the merged DataFrame to a CSV file in the same directory
+            merged_data.to_csv(output_file, index=False)
+            print(f"File '{output_file}' saved successfully.")
+        
+            return merged_data
         </code></pre>
 
 
         <section class="py-3 py-md-5 py-xl-8">
-            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">Tommaso - Get Coordinates and haversine formula</h2>
+            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">Tommaso Stradiotto
+            </h2>
         </section>
 
         <pre><code class="language-python mb-5">
@@ -290,10 +440,39 @@
                 print(f"Error connecting to Geocoding API: {e}")
                 return None, None
         </code></pre>
+        <pre><code class="language-python mb-5">
+            def is_location_in_piemonte(lat, lng):
+            """
+            Check if given latitude and longitude are in the Piemonte region using Google's Reverse Geocoding API.
+            """
+            reverse_geocode_url = "https://maps.googleapis.com/maps/api/geocode/json"
+            params = {
+                "latlng": f"{lat},{lng}",
+                "key": GOOGLE_API_KEY
+            }
+            try:
+                response = requests.get(reverse_geocode_url, params=params)
+                response.raise_for_status()
+                data = response.json()
+                
+                if data['status'] != 'OK':
+                    print(f"Error in Reverse Geocoding API response: {data['status']}")
+                    return False
+    
+                # Check if any of the returned results are in the Piemonte region
+                for result in data['results']:
+                    if any('Piemonte' in component['long_name'] for component in result['address_components']):
+                        return True
+    
+                return False
+            except requests.exceptions.RequestException as e:
+                print(f"Error connecting to Reverse Geocoding API: {e}")
+                return False
+        </code></pre>
 
 
         <section class="py-3 py-md-5 py-xl-8">
-            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">Manuel First Part</h2>
+            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">Manuel Okoye</h2>
         </section>
 
         <pre><code class="language-python mb-5">
@@ -310,10 +489,27 @@
                 # CSV file paths
                 regpie_csv_path = 'app/regpie-RifugiOpenDa_2296-all.csv'
                 shelters_csv_path = 'app/mountain_shelters.csv'
-
-                # Process and merge the CSV files
-                cleaned_df = cleancsv1(regpie_csv_path, shelters_csv_path)
-
+                scrape_script_path = 'app/mymodules/scrape.py'
+            
+                # Check if mountain_shelters.csv exists, otherwise run scrape.py
+                if not os.path.exists(shelters_csv_path):
+                    print("Mountain shelters file not found. Running scrape.py to generate it.")
+                    subprocess.run(['python', scrape_script_path], check=True)
+            
+                # Define the path for merged_data.csv
+                merged_data_csv_path = os.path.join(os.path.dirname(shelters_csv_path), 'merged_data.csv')
+            
+                # Check if merged_data.csv exists, otherwise run cleancsv1
+                if not os.path.exists(merged_data_csv_path):
+                    print("Merged data file not found. Running cleancsv1 to generate it.")
+                    cleancsv1(regpie_csv_path, shelters_csv_path)
+            
+                # After ensuring merged_data.csv exists, load and return its contents
+                try:
+                    cleaned_df = pd.read_csv(merged_data_csv_path)
+                except Exception as e:
+                    raise HTTPException(status_code=500, detail=f"Error loading merged data: {str(e)}")
+                    
                 # Get user coordinates
                 user_lat, user_lng = None, None
                 if location:
@@ -321,134 +517,143 @@
                     if user_lat is None or user_lng is None:
                         print("Invalid location or unable to get coordinates.")
                         raise HTTPException(status_code=400, detail="Invalid location")
-                    else:
-                        print(f"User coordinates: Latitude = {user_lat}, Longitude = {user_lng}")
-
+                    
+                    # if not is_location_in_piemonte(user_lat, user_lng):
+                    #     print("Location is not in Piemonte.")
+                    #     raise HTTPException(status_code=400, detail="Location is not in Piemonte")
+                    
+                    print(f"User coordinates: Latitude = {user_lat}, Longitude = {user_lng}")
+            
                 # Convert the DataFrame to a dictionary for processing
                 cleaned_data = cleaned_df.to_dict(orient='records')
-        </code></pre>
-
-
-        <section class="py-3 py-md-5 py-xl-8">
-            <h2 class="mt-4 mb-4 display-5" style="font-size: 1.5rem;">Manuel Second Part</h2>
-        </section>
-
-        <pre><code class="language-python mb-5">
-            # Apply filters
-            filtered_data = []
-            for item in cleaned_data:
-                if bagni and str(item.get('BAGNI', '')) != bagni:
-                    continue
-                if camere and str(item.get('CAMERE', '')) != camere:
-                    continue
-                if letti and str(item.get('LETTI', '')) != letti:
-                    continue
-                if provincia and item.get('PROVINCIA', '').lower() != provincia.lower():
-                    continue
-                if comune and item.get('COMUNE', '').lower() != comune.lower():
-                    continue
-
-                # Location-based filtering
-                if user_lat is not None and user_lng is not None and 'Latitude' in item and 'Longitude' in item:
-                    item_lat, item_lng = item['Latitude'], item['Longitude']
-                    distance = haversine((user_lat, user_lng), (item_lat, item_lng))
-                    print(f"Distance from {item['DENOMINAZIONE']} to user location: {distance} km")
-                    if distance > range_km:
+            
+                # Check if any filter is set
+                is_any_filter_set = any([
+                    bagni, camere, letti, provincia, comune, location, range_km is not None
+                ])
+            
+                if not is_any_filter_set:
+                    # If no filters are set, return all data
+                    return JSONResponse(content=cleaned_data)
+            
+                # Apply filters
+                filtered_data = []
+                for item in cleaned_data:
+                    if bagni and str(item.get('BAGNI', '')) != bagni:
                         continue
-
-                filtered_data.append(item)
+                    if camere and str(item.get('CAMERE', '')) != camere:
+                        continue
+                    if letti and str(item.get('LETTI', '')) != letti:
+                        continue
+                    if provincia and item.get('PROVINCIA', '').lower() != provincia.lower():
+                        continue
+                    if comune and item.get('COMUNE', '').lower() != comune.lower():
+                        continue
+            
+                     # Location-based filtering
+                    if user_lat is not None and user_lng is not None and 'Latitude' in item and 'Longitude' in item:
+                        item_lat, item_lng = item['Latitude'], item['Longitude']
+                        distance = haversine((user_lat, user_lng), (item_lat, item_lng))
+                        print(f"Distance from {item['DENOMINAZIONE']} to user location: {distance} km")
+                        
+                        if distance <= range_km:
+                            item['Distance'] = f"{distance:.2f} km"
+                            filtered_data.append(item)
+                            
+                return JSONResponse(content=filtered_data)
         </code></pre>
     </section>
-
-
-    
-
-    <section class="section section-image rounded-image-container" aria-describedby="titleEx5" style="background-image: url('https://picsum.photos/1280/720?image=811'); background-size: cover; background-position: center; color: white;">
-        <div class="section-content" style="padding: 120px 80px;"> 
-            <!-- Example content START -->
-            <div class="container-fluid">
-                <div class="row mb-5"> <!-- Increase bottom margin as needed -->
-                    <div class="col-12">
-                        <h2 id="titleEx5" style="font-size: 3rem;">Morbi fermentum amet</h2> <!-- Increase font size as needed -->
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-lg-6 col-xl-4 mb-5" style="padding-right: 1rem;"> <!-- Adjust right padding as needed -->
-                        Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus.
-                    </div>
-                    <div class="col-12 col-lg-6 col-xl-4 mb-5" style="padding-right: 1rem;"> <!-- Adjust right padding as needed -->
-                        Eget egestas purus viverra accumsan. Diam maecenas ultricies mi eget mauris pharetra et. Etiam dignissim diam quis enim. Eu nisl nunc mi ipsum faucibus.
-                    </div>
-                    <div class="col-12 col-lg-6 col-xl-4 mb-5" style="padding-right: 1rem;"> <!-- Adjust right padding as needed -->
-                        Euismod lacinia at quis risus sed vulputate. Scelerisque purus semper eget duis at tellus at urna condimentum. Mattis enim ut tellus elementum sagittis.
-                    </div>
-                </div>
-            </div>
-            <!-- Example content END -->
-        </div>
-    </section>
-    
-    
-
-    <!-- Development Team -->
     <section class="py-3 py-md-5 py-xl-8">
         <h2 class="mb-4 display-5 text-center">Our Team</h2>
-        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient individuals. You will love to collaborate with us.</p>
+        <p class="text-secondary mb-5 text-center lead fs-4">We are a group of innovative, experienced, and proficient
+            individuals. You will love to collaborate with us.</p>
         <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
-    
-        <div class="container overflow-hidden">
-            <div class="row gy-4 gy-lg-0 gx-xxl-5">
-                <!-- Team Members Cards -->
-                <!-- Make sure to replace 'team_member_x.jpg' with the actual image filenames -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                        <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}" alt="Team Member 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Luca Barattini</h5>
-                            <p class="card-text">CEO - 888528</p>
+
+        <div class="container">
+            <!-- Carousel for Team Members -->
+            <div id="teamCarousel" class="carousel slide">
+                <div class="carousel-inner">
+                    <!-- First Slide with First Three Team Members -->
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                                    <img class="card-img-top"
+                                        src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}"
+                                        alt="Team Member 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Luca Barattini</h5>
+                                        <p class="card-text">CEO - 888528</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                                    <img class="card-img-top"
+                                        src="{{ url_for('static', filename='img/Screenshot 2023-12-01 alle 16.06.52.png') }}"
+                                        alt="Team Member 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Pietro Di Curzio</h5>
+                                        <p class="card-text">889052</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                                    <img class="card-img-top"
+                                        src="{{ url_for('static', filename='img/8111fe08-1894-41fb-b6f5-674d57639139.jpg') }}"
+                                        alt="Team Member 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Manuel Okoye</h5>
+                                        <p class="card-text">891815</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second Slide with Remaining Two Team Members -->
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                                    <img class="card-img-top"
+                                        src="{{ url_for('static', filename='img/Profile_Pic.JPG') }}"
+                                        alt="Team Member 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Tommaso Stradiotto</h5>
+                                        <p class="card-text">861386</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                                    <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_8081.JPG') }}"
+                                        alt="Team Member 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Mirela Ceban</h5>
+                                        <p class="card-text">887575</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                        <img class="card-img-top" src="{{ url_for('static', filename='img/Profile_Pic.JPG') }}" alt="Team Member 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Tommaso Stradiotto</h5>
-                            <p class="card-text">861386</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                        <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_8081.JPG') }}" alt="Team Member 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Mirela Ceban</h5>
-                            <p class="card-text">887575</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                        <img class="card-img-top" src="{{ url_for('static', filename='img/Screenshot 2023-12-01 alle 16.06.52.png') }}" alt="Team Member 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Pietro Di Curzio</h5>
-                            <p class="card-text">889052</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                        <img class="card-img-top" src="{{ url_for('static', filename='img/8111fe08-1894-41fb-b6f5-674d57639139.jpg') }}" alt="Team Member 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Manuel Okoye</h5>
-                            <p class="card-text">891815</p>
-                        </div>
-                    </div>
-                </div>
-                
+
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </div>
     </section>
+
+
 </div>
 
 {% endblock %}

@@ -45,32 +45,32 @@ def get_coordinates(address):
         return None, None
 
 # def is_location_in_piemonte(lat, lng):
-#     """
-#     Check if given latitude and longitude are in the Piemonte region using Google's Reverse Geocoding API.
-#     """
-#     reverse_geocode_url = "https://maps.googleapis.com/maps/api/geocode/json"
-#     params = {
-#         "latlng": f"{lat},{lng}",
-#         "key": GOOGLE_API_KEY
-#     }
-#     try:
-#         response = requests.get(reverse_geocode_url, params=params)
-#         response.raise_for_status()
-#         data = response.json()
-        
-#         if data['status'] != 'OK':
-#             print(f"Error in Reverse Geocoding API response: {data['status']}")
+#         """
+#         Check if given latitude and longitude are in the Piemonte region using Google's Reverse Geocoding API.
+#         """
+#         reverse_geocode_url = "https://maps.googleapis.com/maps/api/geocode/json"
+#         params = {
+#             "latlng": f"{lat},{lng}",
+#             "key": GOOGLE_API_KEY
+#         }
+#         try:
+#             response = requests.get(reverse_geocode_url, params=params)
+#             response.raise_for_status()
+#             data = response.json()
+            
+#             if data['status'] != 'OK':
+#                 print(f"Error in Reverse Geocoding API response: {data['status']}")
+#                 return False
+
+#             # Check if any of the returned results are in the Piemonte region
+#             for result in data['results']:
+#                 if any('Piemonte' in component['long_name'] for component in result['address_components']):
+#                     return True
+
 #             return False
-
-#         # Check if any of the returned results are in the Piemonte region
-#         for result in data['results']:
-#             if any('Piemonte' in component['long_name'] for component in result['address_components']):
-#                 return True
-
-#         return False
-#     except requests.exceptions.RequestException as e:
-#         print(f"Error connecting to Reverse Geocoding API: {e}")
-        return False
+#         except requests.exceptions.RequestException as e:
+#             print(f"Error connecting to Reverse Geocoding API: {e}")
+#             return False
 
 @app.get('/cleaned_csv_show')
 async def read_and_return_cleaned_csv(
@@ -119,7 +119,8 @@ async def read_and_return_cleaned_csv(
         #     raise HTTPException(status_code=400, detail="Location is not in Piemonte")
         
         print(f"User coordinates: Latitude = {user_lat}, Longitude = {user_lng}")
-
+    else: 
+        user_lat, user_lng = None, None
     # Convert the DataFrame to a dictionary for processing
     cleaned_data = cleaned_df.to_dict(orient='records')
 
@@ -147,13 +148,17 @@ async def read_and_return_cleaned_csv(
             continue
 
          # Location-based filtering
-        if user_lat is not None and user_lng is not None and 'Latitude' in item and 'Longitude' in item:
-            item_lat, item_lng = item['Latitude'], item['Longitude']
-            distance = haversine((user_lat, user_lng), (item_lat, item_lng))
-            print(f"Distance from {item['DENOMINAZIONE']} to user location: {distance} km")
-            
-            if distance <= range_km:
-                item['Distance'] = f"{distance:.2f} km"
-                filtered_data.append(item)
-                
+        if user_lat is not None and user_lng is not None and range_km is not None:
+            if 'Latitude' in item and 'Longitude' in item:
+                item_lat, item_lng = item['Latitude'], item['Longitude']
+                distance = haversine((user_lat, user_lng), (item_lat, item_lng))
+                print(f"Distance from {item['DENOMINAZIONE']} to user location: {distance} km")
+
+                if distance <= range_km:
+                    item['Distance'] = f"{distance:.2f} km"
+                    filtered_data.append(item)
+            continue
+
+        filtered_data.append(item)
+        
     return JSONResponse(content=filtered_data)

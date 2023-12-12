@@ -3,156 +3,258 @@
 
 
 
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.css">
-    
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.css">
 
-    <style>
-      /* Add rounded corners and border to team member images */
-      .team-member {
-          border: 2px solid #ccc;
-          border-radius: 10px;
-          padding: 10px;
-      }
-  
-      .team-member img {
-          border-radius: 50%;
-      }
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
 
-      .rounded-image-container {
-          background-image: url('https://picsum.photos/1280/720?image=811');
-          background-size: cover;
-          background-position: center;
-          border: 5px solid rgba(0, 0, 0, 0.572); /* Blue border */
-          border-radius: 15px; /* Rounded corners */
-          padding: 100px 0;
-      }
+  <style>
+    /* Add rounded corners and border to team member images */
+    .team-member {
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .team-member img {
+      border-radius: 50%;
+    }
+
+    .rounded-image-container {
+      background-image: url('https://picsum.photos/1280/720?image=811');
+      background-size: cover;
+      background-position: center;
+      border: 5px solid rgba(0, 0, 0, 0.572);
+      /* Blue border */
+      border-radius: 15px;
+      /* Rounded corners */
+      padding: 100px 0;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgb(255, 253, 253);
+      /* White background */
+      z-index: 1000;
+      /* Ensure navbar stays on top */
+    }
+
+    .navbar .container-fluid {
+      display: flex;
+      justify-content: center;
+      /* Center the items */
+      align-items: center;
+    }
+
+    .navbar-brand {
+      /* Removed flex-grow: 1; */
+      text-align: center;
+    }
+
+    .navbar-nav {
+      /* Removed flex-grow: 1; */
+      justify-content: center;
+    }
+
+    body {
+      padding-top: 80px;
+      /* Aggiungi un padding in alto al body per evitare che il contenuto sia coperto dalla navbar */
+    }
+
+    .btn-large {
+      padding: 150px 160px;
+      /* Increased padding for larger size */
+      font-size: 20px;
+      /* Larger font size */
+      border-radius: 80px;
+      /* Slightly more rounded corners for proportion */
+      box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+      /* Adjusted box shadow for depth */
+      transition: all 0.3s;
+      /* Smooth transition for hover effect */
+    }
+
+    .btn-large:hover,
+    .btn-large:focus {
+      box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.3);
+      /* Larger shadow on hover */
+      transform: translateY(-3px);
+      /* Slight lift on hover */
+    }
+
+    .card-img-top {
+      height: 200px;
+      /* or any other fixed height */
+      object-fit: cover;
+      /* Covers the height and maintains aspect ratio */
+      width: 100%;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      /* Adjust height as necessary */
+      overflow: hidden;
+      /* Hide overflow */
+    }
+
+    .card-body {
+      padding: 15px;
+      overflow-y: auto;
+      /* Add vertical scroll bar if content overflows */
+      max-height: 500px;
+      /* Adjust max height as necessary */
+    }
+
+    .card ul {
+      padding-left: 20px;
+      /* Adjust list indentation */
+    }
+
+    .card li {
+      margin-bottom: 5px;
+      /* Adjust spacing between list items */
+    }
+
+    .navbar .nav-link.active,
+    .navbar .nav-link.active:hover {
+      color: #0d6efd !important;
+      /* Force blue color for active link */
+    }
+
+    #carouselExampleIndicators {
+      width: auto;
+      /* Width based on the image size */
+      height: auto;
+      /* Height based on the image size */
+      margin: auto;
+      /* Center the carousel if needed */
+    }
+
+    .carousel-inner {
+      width: 100%;
+      height: auto;
+    }
+
+    .carousel-item {
+      width: 100%;
+      height: auto;
+      /* Remove display, align-items, and justify-content */
+    }
+
+    /* Custom styling for carousel control buttons */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-image: none;
+      /* Remove default arrows */
+    }
+
+    .carousel-control-prev-icon:after,
+    .carousel-control-next-icon:after {
+      content: '';
+      /* Add your custom arrow or symbol */
+      display: inline-block;
+      width: 20px;
+      /* Width of the arrow */
+      height: 20px;
+      /* Height of the arrow */
+      background-color: #0d6efd;
+      /* Blue color */
+      border-radius: 50%;
+      /* Make it circular */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      /* Optional: Add shadow for depth */
+    }
+
+    /* Specific customizations for each arrow direction */
+    .carousel-control-prev-icon:after {
+      /* Customizations for the left arrow */
+    }
+
+    .carousel-control-next-icon:after {
+      /* Customizations for the right arrow */
+    }
+  </style>
+
+  <title>{% block title %} {% endblock %}</title>
+</head>
 
 
-      
+<body>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.js"></script>
 
+  <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
 
-
-
-
-
-
-
-
-
-
-
-      .navbar {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background-color: rgb(255, 253, 253); /* Imposta lo sfondo a bianco */
-        z-index: 1000; /* Assicurati che la navbar rimanga sopra gli altri elementi */
-      }
-
-      body {
-        padding-top: 80px; /* Aggiungi un padding in alto al body per evitare che il contenuto sia coperto dalla navbar */
-      }
-
-      .navbar-nav {
-        flex-grow: 1;
-        justify-content: center;
-      }
-
-      .navbar .container-fluid {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .navbar-brand {
-        flex-grow: 1;
-        text-align: center;
-      }
-
-
-
-
-
-
-
-      .btn-large {
-        padding: 150px 160px; /* Increased padding for larger size */
-        font-size: 20px; /* Larger font size */
-        border-radius: 80px; /* Slightly more rounded corners for proportion */
-        box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2); /* Adjusted box shadow for depth */
-        transition: all 0.3s; /* Smooth transition for hover effect */
-      }
-
-      .btn-large:hover, .btn-large:focus {
-        box-shadow: 0 8px 15px 0 rgba(0,0,0,0.3); /* Larger shadow on hover */
-        transform: translateY(-3px); /* Slight lift on hover */
-      }
-
-
-
-      .card-img-top {
-       height: 200px; /* or any other fixed height */
-       object-fit: cover; /* Covers the height and maintains aspect ratio */
-       width: 100%;
-      }
-
-      .card {
-       display: flex;
-       flex-direction: column;
-       height: 100%;
-      }
-
-      .card-body {
-       display: flex;
-       flex-direction: column;
-       justify-content: space-between; /* This spreads out the content */
-       flex-grow: 1;
-      }
-
-
-
-    </style>
-
-    <title>{% block title %} {% endblock %}</title>
-  </head>
-
-
-  <body>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.js"></script>
-    
-    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
-    
-    <script>
-      $(document).ready(function() {
-          $(window).scroll(function() {
-              var scroll = $(window).scrollTop();
-              if (scroll > 50) {
-                  $(".main-nav").css("background-color", "#f8f9fa"); // Change to desired color
-              } else {
-                  $(".main-nav").css("background-color", "transparent");
-              }
-          });
+  <script>
+    $(document).ready(function () {
+      $(window).scroll(function () {
+        var scroll = $(window).scrollTop();
+        if (scroll > 50) {
+          $(".main-nav").css("background-color", "#f8f9fa"); // Change to desired color
+        } else {
+          $(".main-nav").css("background-color", "transparent");
+        }
       });
-    </script>
+    });
+  </script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
-    
-    <div class="container">
-        {% block content %} {% endblock %}
-    </div>
-  </body>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var navLinks = document.querySelectorAll('.navbar .nav-link');
+      var currentUrl = window.location.pathname;
+
+      navLinks.forEach(function (link) {
+        if (link.getAttribute('href') === currentUrl) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+
+  <script>
+    // Wait for the DOM to be ready
+    document.addEventListener("DOMContentLoaded", function () {
+      // Initialize the carousel with no auto-cycling
+      var myCarousel = document.querySelector('#carouselExampleIndicators');
+      var carousel = new bootstrap.Carousel(myCarousel, {
+        interval: false, // No auto-cycling
+        wrap: false // Stops cycling after the last item
+      });
+
+      var teamCarousel = document.querySelector('#teamCarousel');
+      var teamCarouselInstance = new bootstrap.Carousel(teamCarousel, {
+        interval: false, // No auto-cycling
+        wrap: false // Stops cycling after the last item
+      });
+    });
+  </script>
+
+  <script>
+    document.body.style.zoom = "70%";
+  </script>
+  <div class="container">
+    {% block content %} {% endblock %}
+  </div>
+</body>
+
 </html>

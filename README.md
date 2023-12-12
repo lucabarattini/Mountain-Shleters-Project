@@ -9,9 +9,6 @@ Welcome to the "Mountain House” website, an intuitive platform designed to con
 - **Distance-based Search**: Specify a range of kilometers to find shelters within close proximity to your current location or a chosen area.
 - **User-friendly Interface**: Enjoy a seamless user experience with an intuitive design that makes navigation and information retrieval straightforward and efficient.
 
-## Setup and Installation
-(Include detailed steps on how to set up and run the project locally, including any necessary software, dependencies, and environment setup.)
-
 ## Technologies Used
 - HTML/CSS/JavaScript
 - Flask (FrontEnd)

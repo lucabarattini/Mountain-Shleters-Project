@@ -47,6 +47,12 @@ def piemonte():
     response = requests.get('http://backend:80/cleaned_csv_show', params=query_params)
     response.raise_for_status()
     cleaned_data = response.json()
+    
+    # Check for an error in the response
+    if 'error' in cleaned_data:
+        error_message = cleaned_data['error']
+        # Render the Piemonte page with an error message
+        return render_template('piemonte.html', error_message=error_message, cleaned_data=[])
 
     return render_template('piemonte.html', cleaned_data=cleaned_data)
 

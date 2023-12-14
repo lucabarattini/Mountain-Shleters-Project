@@ -112,8 +112,7 @@ async def read_and_return_cleaned_csv(
         user_lat, user_lng = get_coordinates(location)
         if user_lat is None or user_lng is None:
             print("Invalid location or unable to get coordinates.")
-            raise HTTPException(status_code=400, detail="Invalid location")
-        
+            return {"error": "💀 Invalid location. Please re-enter a valid location."}        
         # if not is_location_in_piemonte(user_lat, user_lng):
         #     print("Location is not in Piemonte.")
         #     raise HTTPException(status_code=400, detail="Location is not in Piemonte")
@@ -133,7 +132,7 @@ async def read_and_return_cleaned_csv(
         # If no filters are set, return all data
         return JSONResponse(content=cleaned_data)
 
-    # Apply filters
+        # Apply filters
     filtered_data = []
     for item in cleaned_data:
         if bagni and str(item.get('BAGNI', '')) != bagni:
@@ -147,18 +146,23 @@ async def read_and_return_cleaned_csv(
         if comune and item.get('COMUNE', '').lower() != comune.lower():
             continue
 
-         # Location-based filtering
+        # Location-based filtering
         if user_lat is not None and user_lng is not None and range_km is not None:
             if 'Latitude' in item and 'Longitude' in item:
                 item_lat, item_lng = item['Latitude'], item['Longitude']
                 distance = haversine((user_lat, user_lng), (item_lat, item_lng))
-                print(f"Distance from {item['DENOMINAZIONE']} to user location: {distance} km")
-
                 if distance <= range_km:
                     item['Distance'] = f"{distance:.2f} km"
                     filtered_data.append(item)
             continue
 
         filtered_data.append(item)
-        
+    
+    # Check if no results found for provincia or comune
+    if provincia and not filtered_data:
+        return {"error": f"No results found for the PROVINCIA '{provincia}'"}
+    if comune and not filtered_data:
+        return {"error": f"No results found for the COMUNE '{comune}'"}
+
+    # Return filtered data if no error condition is met
     return JSONResponse(content=filtered_data)

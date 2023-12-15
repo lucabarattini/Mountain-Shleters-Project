@@ -80,7 +80,7 @@ def cleancsv1(file_path_regpie, file_path_shelters, delimiter=';'):
     
     # Save the merged DataFrame to a CSV file in the same directory
     merged_data.to_csv(output_file, index=False)
-    print(f"File '{output_file}' saved successfully.")
+    # print(f"File '{output_file}' saved successfully.")
 
     return merged_data
 

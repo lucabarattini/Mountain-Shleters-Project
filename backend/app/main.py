@@ -7,6 +7,7 @@ from haversine import haversine
 
 from .mymodules.csv_cleaning import cleancsv1
 
+import uvicorn
 import json
 import requests
 import os
@@ -17,10 +18,6 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     return {"message": "Your Backend is running :)"}
-
-@app.on_event("startup")
-async def startup_event():
-    print("Your Backend is running: 🌈")
 
 # Google API key
 GOOGLE_API_KEY = "AIzaSyATC1fSYrOd7mQufuvHCOZX2CdXptZNvas"  # Replace with your actual API key
@@ -94,7 +91,8 @@ async def read_and_return_cleaned_csv(
 
     # Define the path for merged_data.csv
     merged_data_csv_path = os.path.join(os.path.dirname(shelters_csv_path), 'merged_data.csv')
-
+    print(f"merged_data_csv_path: {merged_data_csv_path}")
+    
     # Check if merged_data.csv exists, otherwise run cleancsv1
     if not os.path.exists(merged_data_csv_path):
         print("Merged data file not found. Running cleancsv1 to generate it.")
@@ -166,3 +164,6 @@ async def read_and_return_cleaned_csv(
 
     # Return filtered data if no error condition is met
     return JSONResponse(content=filtered_data)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000, lifespan="on")

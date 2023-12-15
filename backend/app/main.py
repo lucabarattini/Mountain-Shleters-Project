@@ -91,7 +91,8 @@ async def read_and_return_cleaned_csv(
 
     # Define the path for merged_data.csv
     merged_data_csv_path = os.path.join(os.path.dirname(shelters_csv_path), 'merged_data.csv')
-
+    print(f"merged_data_csv_path: {merged_data_csv_path}")
+    
     # Check if merged_data.csv exists, otherwise run cleancsv1
     if not os.path.exists(merged_data_csv_path):
         print("Merged data file not found. Running cleancsv1 to generate it.")

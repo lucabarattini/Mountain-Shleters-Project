@@ -1,7 +1,6 @@
 import os
 import sys
 import pytest
-from fastapi.testclient import TestClient
 
 # Add the project root to the sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -9,8 +8,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from app.main import app
 
 from fastapi.testclient import TestClient
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 import requests
+
+from app.mymodules.csv_cleaning import cleancsv1
 
 """
 Execute this test by running on the terminal (from the app/) the command:
@@ -25,15 +26,29 @@ from app.main import app
 client = TestClient(app)
 
 @patch('requests.get')
-def test_get_coordinates_request_exception(mock_get):
-    # Set the side effect of requests.get to raise a RequestException
-    mock_get.side_effect = requests.exceptions.RequestException
+def test_get_coordinates_exception(mock_get):
+    invalid_location = "InvalidLocation"
+    range_km = "5"
+    mock_get.side_effect = requests.exceptions.RequestException("An error occurred")
+    response = client.get(f"/cleaned_csv_show?location={invalid_location}&range_km={range_km}")
+    assert response.status_code == 200  # or another appropriate status code
+    assert response.json() == {"error": "💀 Invalid location. Please re-enter a valid location."}
 
-    # Now call the endpoint that triggers the get_coordinates function
-    response = client.get("/cleaned_csv_show")
-    # Replace the assertions below with the expected behavior in case of an exception
-    assert response.status_code == 500
-    assert "error" in response.json()  # Check if the error key is in the response (if your API responds with an error key)
+@patch('os.path.exists')
+@patch('app.mymodules.csv_cleaning.cleancsv1')
+@patch('builtins.print')
+def test_merged_data_csv_missing(mock_print, mock_cleancsv1, mock_exists):
+    # Adjusted to check for the full path of merged_data.csv
+    mock_exists.side_effect = lambda path: False if 'app/merged_data.csv' in path else True
+
+    # Call the endpoint that would trigger the check for merged_data.csv
+    response = client.get("/cleaned_csv_show")  # Replace with the appropriate endpoint
+
+    # Ensure the print statement was called with the expected message
+    mock_print.assert_called_with("Merged data file not found. Running cleancsv1 to generate it.")
+
+    # Ensure cleancsv1 function was called
+    mock_cleancsv1.assert_called_with('app/regpie-RifugiOpenDa_2296-all.csv', 'app/mountain_shelters.csv')
     
 def test_read_main():
     response = client.get("/")

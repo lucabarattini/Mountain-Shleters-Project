@@ -136,4 +136,3 @@ def test_no_filter():
     response = client.get("/cleaned_csv_show")
     assert response.status_code == 200
     assert type(response.json()) is list
-

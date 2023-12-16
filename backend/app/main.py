@@ -1,11 +1,10 @@
 from fastapi import FastAPI, HTTPException, Query
-from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from datetime import datetime
 import pandas as pd
 from haversine import haversine
 
-from .mymodules.csv_cleaning import cleancsv1
+from .mymodules.csv_cleaning import clean_csv1
 
 import uvicorn
 import json
@@ -20,7 +19,7 @@ def read_root():
     return {"message": "Your Backend is running :)"}
 
 # Google API key
-GOOGLE_API_KEY = "AIzaSyATC1fSYrOd7mQufuvHCOZX2CdXptZNvas"  # Replace with your actual API key
+GOOGLE_API_KEY = "AIzaSyATC1fSYrOd7mQufuvHCOZX2CdXptZNvas"  
 
 def get_coordinates(address):
     """
@@ -93,10 +92,10 @@ async def read_and_return_cleaned_csv(
     merged_data_csv_path = os.path.join(os.path.dirname(shelters_csv_path), 'merged_data.csv')
     print(f"merged_data_csv_path: {merged_data_csv_path}")
     
-    # Check if merged_data.csv exists, otherwise run cleancsv1
+    # Check if merged_data.csv exists, otherwise run clean_csv1
     if not os.path.exists(merged_data_csv_path):
-        print("Merged data file not found. Running cleancsv1 to generate it.")
-        cleancsv1(regpie_csv_path, shelters_csv_path)
+        print("Merged data file not found. Running clean_csv1 to generate it.")
+        clean_csv1(regpie_csv_path, shelters_csv_path)
 
     # After ensuring merged_data.csv exists, load and return its contents
     try:

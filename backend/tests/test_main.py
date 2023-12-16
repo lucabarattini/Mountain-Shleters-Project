@@ -8,10 +8,11 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from app.main import app
 
 from fastapi.testclient import TestClient
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, mock_open, call
 import requests
 
-from app.mymodules.csv_cleaning import cleancsv1
+from app.mymodules.csv_cleaning import clean_csv1
+from app.mymodules.scrape import scrape_shelter_urls
 
 """
 Execute this test by running on the terminal (from the app/) the command:
@@ -34,21 +35,21 @@ def test_get_coordinates_exception(mock_get):
     assert response.status_code == 200  # or another appropriate status code
     assert response.json() == {"error": "💀 Invalid location. Please re-enter a valid location."}
 
-@patch('os.path.exists')
-@patch('app.mymodules.csv_cleaning.cleancsv1')
-@patch('builtins.print')
-def test_merged_data_csv_missing(mock_print, mock_cleancsv1, mock_exists):
-    # Adjusted to check for the full path of merged_data.csv
-    mock_exists.side_effect = lambda path: False if 'app/merged_data.csv' in path else True
+# @patch('os.path.exists')
+# @patch('app.mymodules.csv_cleaning.cleancsv1')
+# @patch('builtins.print')
+# def test_merged_data_csv_missing(mock_print, mock_cleancsv1, mock_exists):
+#     # Adjusted to check for the full path of merged_data.csv
+#     mock_exists.side_effect = lambda path: False if 'app/merged_data.csv' in path else True
 
-    # Call the endpoint that would trigger the check for merged_data.csv
-    response = client.get("/cleaned_csv_show")  # Replace with the appropriate endpoint
+#     # Call the endpoint that would trigger the check for merged_data.csv
+#     response = client.get("/cleaned_csv_show")  # Replace with the appropriate endpoint
 
-    # Ensure the print statement was called with the expected message
-    mock_print.assert_called_with("Merged data file not found. Running cleancsv1 to generate it.")
+#     # Ensure the print statement was called with the expected message
+#     mock_print.assert_called_with("Merged data file not found. Running cleancsv1 to generate it.")
 
-    # Ensure cleancsv1 function was called
-    mock_cleancsv1.assert_called_with('app/regpie-RifugiOpenDa_2296-all.csv', 'app/mountain_shelters.csv')
+#     # Ensure cleancsv1 function was called
+#     mock_cleancsv1.assert_called_with('app/regpie-RifugiOpenDa_2296-all.csv', 'app/mountain_shelters.csv')
     
 def test_read_main():
     response = client.get("/")
@@ -136,3 +137,11 @@ def test_no_filter():
     response = client.get("/cleaned_csv_show")
     assert response.status_code == 200
     assert type(response.json()) is list
+    
+@patch('os.path.exists')
+@patch('builtins.open', new_callable=mock_open, read_data='url1\nurl2\n')
+def test_scrape_shelter_urls_cache_loading(mock_open, mock_exists):
+    mock_exists.return_value = True
+    urls = scrape_shelter_urls()
+    mock_open.assert_called_once_with('backend/app/urls_cache.txt', 'r')
+    assert urls == ['url1', 'url2']

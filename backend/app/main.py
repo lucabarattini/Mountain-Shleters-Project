@@ -16,6 +16,8 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
+    """Return a JSON message indicating the backend service status."""
+
     return {"message": "Your Backend is running :)"}
 
 # Google API key
@@ -78,6 +80,23 @@ async def read_and_return_cleaned_csv(
     location: str = Query(None), 
     range_km: float = Query(None)
 ):
+    """
+    Get the cleaned CSV file content.
+    
+    This route accepts query parameters for filtering the CSV data, reads the cleaned CSV file, 
+    and returns its content. If the file does not exist, it will trigger a scrape and create it.
+    
+    Query Parameters:
+    - bagno: str (optional)
+    - camera: str (optional)
+    ...
+    
+    Returns:
+    - JSON response containing the CSV data or an error message.
+    
+    Raises:
+    - HTTPException: If the file can't be loaded, an HTTP 500 error is returned with the exception message.
+    """
     # CSV file paths
     regpie_csv_path = 'app/regpie-RifugiOpenDa_2296-all.csv'
     shelters_csv_path = 'app/mountain_shelters.csv'

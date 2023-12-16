@@ -10,13 +10,15 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'  # Replace with a secure secret key
+app.config['SECRET_KEY'] = 'your_secret_key'  
 
 # Configuration for the FastAPI backend URL
-FASTAPI_BACKEND_HOST = 'http://backend'  # Replace with the actual URL of your FastAPI backend
+FASTAPI_BACKEND_HOST = 'http://backend'  
 BACKEND_URL = f'{FASTAPI_BACKEND_HOST}/query/'
 
 class QueryForm(FlaskForm):
+    """Form for submitting queries to the backend."""
+
     person_name = StringField('Person Name:')
     submit = SubmitField('Get Birthday from FastAPI Backend')
 
@@ -32,6 +34,15 @@ def index():
 
 @app.route('/piemonte')
 def piemonte():
+    """
+    Render the Piemonte page with dynamic content based on query parameters.
+
+    This function fetches data from the backend based on query parameters 
+    provided by the user and renders the Piemonte page with this data.
+
+    Returns:
+        Rendered HTML content for the Piemonte page.
+    """
     # Fetch query parameters
     query_params = {
         'bagni': request.args.get('bagni'),
@@ -58,6 +69,9 @@ def piemonte():
 
 @app.route('/project_description')
 def project_description():
+    """
+    This function handles the rendering of the project description page.
+    """
     return render_template('project_description.html')
 
 

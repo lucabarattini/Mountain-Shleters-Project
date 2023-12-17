@@ -5,16 +5,13 @@ from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 
-def scrape_shelter_urls():
+def scrape_shelter_urls(test_mode=False):
     """
-    Scrapes shelter URLs from a website, using caching to store and retrieve
-    the URLs, reducing the need for repeated scraping. Cache is stored in
-    'backend/app/urls_cache.txt'.
+    Scrapes shelter URLs from a website. If test_mode is True, only the first 20 URLs are scraped.
     """
     cache_file = "backend/app/urls_cache.txt"
 
-    # Load URLs from cache if available
-    if os.path.exists(cache_file):
+    if os.path.exists(cache_file) and not test_mode:
         print("Loading URLs from cache...")
         with open(cache_file, 'r') as file:
             urls = file.read().splitlines()
@@ -22,11 +19,11 @@ def scrape_shelter_urls():
 
     urls = []
     base_url = "https://www.escursionismo.it/rifugi-bivacchi/"
-    response = requests.get(base_url)
+    response = requests.get(base_url, verify=False)
     soup = BeautifulSoup(response.content, 'html.parser')
 
     # Find total number of pages to scrape
-    total_pages = int(soup.find_all('a', class_='page-numbers')[-2].text)
+    total_pages = int(soup.find_all('a', class_='page-numbers')[-2].text) if not test_mode else 1
 
     # Iterate over each page and scrape URLs
     for page in tqdm(range(1, total_pages + 1), desc="Scraping Pages"):
@@ -39,11 +36,14 @@ def scrape_shelter_urls():
             a_tag = div.find('a')
             if a_tag and 'href' in a_tag.attrs:
                 urls.append(a_tag['href'])
+                if test_mode and len(urls) >= 20:
+                    return urls
 
     # Save scraped URLs to cache file
-    with open(cache_file, 'w') as file:
-        for url in urls:
-            file.write(f"{url}\n")
+    if not test_mode:
+        with open(cache_file, 'w') as file:
+            for url in urls:
+                file.write(f"{url}\n")
 
     return urls
 

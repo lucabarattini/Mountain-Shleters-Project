@@ -1,4 +1,8 @@
 from fastapi import FastAPI, HTTPException, Query
+
+from fastapi import FastAPI
+from fastapi import FastAPI
+
 from fastapi.responses import JSONResponse
 from datetime import datetime
 import pandas as pd
@@ -184,4 +188,5 @@ async def read_and_return_cleaned_csv(
     return JSONResponse(content=filtered_data)
 
 if __name__ == "__main__":
+    print("🌈 Running on http://localhost:8081")
     uvicorn.run(app, host="0.0.0.0", port=8000, lifespan="on")

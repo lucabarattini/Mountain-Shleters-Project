@@ -12,6 +12,6 @@ services:
     build:
       context: ./backend
     ports:
-      - "8081:80"
+      - "8081:8000"
     volumes:
       - ./backend:/app

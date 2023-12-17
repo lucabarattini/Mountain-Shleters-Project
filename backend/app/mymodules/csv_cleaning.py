@@ -108,9 +108,3 @@ def clean_csv1(file_path_regpie, file_path_shelters, delimiter=';'):
     # print(f"File '{output_file}' saved successfully.")
 
     return merged_data
-
-# # Usage
-# file_path_regpie = 'app/regpie-RifugiOpenDa_2296-all.csv'  # Update with your file path
-# Update with your file path
-# merged_data = cleancsv1(file_path_regpie, file_path_shelters)
-# print(merged_data)

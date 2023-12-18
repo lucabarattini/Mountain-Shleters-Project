@@ -567,92 +567,88 @@
         </code></pre>
     </section>
     <section class="py-3 py-md-5 py-xl-8">
+        <div class="container d-flex flex-column align-items-center justify-content-center">
+            <!-- First Image -->
+            <div class="row mb-4">
+                <div class="col d-flex justify-content-center">
+                    <img src="{{ url_for('static', filename='img/test-coverage-100.jpg') }}" class="img-fluid" alt="Description of first image">
+                </div>
+            </div>
+    
+            <!-- Second Image -->
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <img src="{{ url_for('static', filename='img/coverage.png') }}" class="img-fluid" alt="Description of second image">
+                </div>
+            </div>
+        </div>
+    </section>
+        
+    <section class="py-3 py-md-5 py-xl-8">
         <h2 class="mb-4 display-5 text-center">Our Team</h2>
         <div class="container">
             <!-- Carousel for Team Members -->
-            <div id="teamCarousel" class="carousel slide">
-                <div class="carousel-inner">
-                    <!-- First Slide with First Three Team Members -->
-                    <div class="carousel-item active">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                                    <img class="card-img-top"
-                                        src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}"
-                                        alt="Team Member 1">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Luca Barattini</h5>
-                                        <p class="card-text">CEO - 888528</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                                    <img class="card-img-top"
-                                        src="{{ url_for('static', filename='img/Screenshot 2023-12-01 alle 16.06.52.png') }}"
-                                        alt="Team Member 1">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Pietro Di Curzio</h5>
-                                        <p class="card-text">889052</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                                    <img class="card-img-top"
-                                        src="{{ url_for('static', filename='img/8111fe08-1894-41fb-b6f5-674d57639139.jpg') }}"
-                                        alt="Team Member 1">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Manuel Okoye</h5>
-                                        <p class="card-text">891815</p>
-                                    </div>
-                                </div>
+            <div class="carousel-item active">
+                <div class="row">
+                    <!-- First Row: Three Team Members -->
+                    <div class="col-lg-4 col-md-6">
+                        <!-- Team Member 1: Luca Barattini -->
+                        <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                            <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_6780 copy.jpeg') }}" alt="Team Member 1">
+                            <div class="card-body">
+                                <h5 class="card-title">Luca Barattini</h5>
+                                <p class="card-text">CEO - 888528</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Second Slide with Remaining Two Team Members -->
-                    <div class="carousel-item">
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                                    <img class="card-img-top"
-                                        src="{{ url_for('static', filename='img/Profile_Pic.JPG') }}"
-                                        alt="Team Member 1">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Tommaso Stradiotto</h5>
-                                        <p class="card-text">861386</p>
-                                    </div>
-                                </div>
+                    <div class="col-lg-4 col-md-6">
+                        <!-- Team Member 2: Pietro Di Curzio -->
+                        <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                            <img class="card-img-top" src="{{ url_for('static', filename='img/Screenshot 2023-12-01 alle 16.06.52.png') }}" alt="Team Member 2">
+                            <div class="card-body">
+                                <h5 class="card-title">Pietro Di Curzio</h5>
+                                <p class="card-text">889052</p>
                             </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
-                                    <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_8081.JPG') }}"
-                                        alt="Team Member 1">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Mirela Ceban</h5>
-                                        <p class="card-text">887575</p>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <!-- Team Member 3: Manuel Okoye -->
+                        <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                            <img class="card-img-top" src="{{ url_for('static', filename='img/8111fe08-1894-41fb-b6f5-674d57639139.jpg') }}" alt="Team Member 3">
+                            <div class="card-body">
+                                <h5 class="card-title">Manuel Okoye</h5>
+                                <p class="card-text">891815</p>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Carousel Controls -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                <div class="row">
+                    <!-- Second Row: Two Team Members -->
+                    <div class="col-lg-6 col-md-6">
+                        <!-- Team Member 4: Tommaso Stradiotto -->
+                        <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                            <img class="card-img-top" src="{{ url_for('static', filename='img/Profile_Pic.JPG') }}" alt="Team Member 4">
+                            <div class="card-body">
+                                <h5 class="card-title">Tommaso Stradiotto</h5>
+                                <p class="card-text">861386</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <!-- Team Member 5: Mirela Ceban -->
+                        <div class="card border-0 border-bottom border-primary shadow-sm overflow-hidden">
+                            <img class="card-img-top" src="{{ url_for('static', filename='img/IMG_8081.JPG') }}" alt="Team Member 5">
+                            <div class="card-body">
+                                <h5 class="card-title">Mirela Ceban</h5>
+                                <p class="card-text">887575</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
-
+    
 </div>
 
 {% endblock %}

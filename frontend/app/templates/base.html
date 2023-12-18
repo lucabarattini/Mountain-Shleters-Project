@@ -185,6 +185,17 @@
     .carousel-control-next-icon:after {
       /* Customizations for the right arrow */
     }
+    
+    @media (max-width: 768px) {
+        /* Adjustments for smaller screens */
+        .carousel .row {
+            margin-bottom: 15px;
+        }
+    }
+
+    .carousel-item .row {
+        justify-content: center;
+    }
   </style>
 
   <title>{% block title %} {% endblock %}</title>

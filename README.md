@@ -13,7 +13,7 @@ Welcome to the "Mountain House” website, an intuitive platform designed to con
 - HTML/CSS/JavaScript
 - Flask (FrontEnd)
 -Fast API (BackEnd)
-- Bootstrap 5.0 for responsive design ( https://getbootstrap.com/docs/5.3/getting-started/introduction/ )
+- Bootstrap 5.0 for responsive design [here](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
 - Geocoding API (Google Maps)
 
 ## CSV Datasets Used in the Project

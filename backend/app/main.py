@@ -25,7 +25,7 @@ def read_root():
     return {"message": "Your Backend is running :)"}
 
 # Google API key
-GOOGLE_API_KEY = "AIzaSyATC1fSYrOd7mQufuvHCOZX2CdXptZNvas"  
+GOOGLE_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"  
 
 def get_coordinates(address):
     """

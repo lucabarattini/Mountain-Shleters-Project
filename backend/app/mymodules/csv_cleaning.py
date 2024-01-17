@@ -2,17 +2,18 @@ import pandas as pd
 import numpy as np
 import os
 
+
 def clean_csv1(file_path_regpie, file_path_shelters, delimiter=';'):
     """
-    Merge and clean data from two CSV files containing information about 
+    Merge and clean data from two CSV files containing information about
     mountain shelters.
 
     Parameters:
     file_path_regpie (str): File path for the first CSV file to be cleaned.
-    file_path_shelters (str): File path for the second CSV file containing 
+    file_path_shelters (str): File path for the second CSV file containing
                               shelter data.
-    delimiter (str, optional): Delimiter used in the CSV files. Defaults to ';'.
-
+    delimiter (str, optional): Delimiter used in the CSV files. Defaults
+    to ';'.
     Returns:
     pd.DataFrame: A pandas DataFrame containing merged and cleaned data from
                   both input CSV files.
@@ -50,8 +51,8 @@ def clean_csv1(file_path_regpie, file_path_shelters, delimiter=';'):
 
     # Rename specific columns for clarity
     new_col_names = {
-        data.columns[5]: 'CAMERE', 
-        data.columns[6]: 'LETTI', 
+        data.columns[5]: 'CAMERE',
+        data.columns[6]: 'LETTI',
         data.columns[7]: 'BAGNI'
     }
     data.rename(columns=new_col_names, inplace=True)
@@ -70,7 +71,8 @@ def clean_csv1(file_path_regpie, file_path_shelters, delimiter=';'):
 
     # Convert 'Latitude' and 'Longitude' in the shelters DataFrame to floats
     shelters['Latitude'] = pd.to_numeric(shelters['Latitude'], errors='coerce')
-    shelters['Longitude'] = pd.to_numeric(shelters['Longitude'], errors='coerce')
+    shelters['Longitude'] = pd.to_numeric(
+        shelters['Longitude'], errors='coerce')
 
     # Nested function to find a partial, case-insensitive match
     def partial_match(denominazione, df_shelters):
@@ -87,7 +89,7 @@ def clean_csv1(file_path_regpie, file_path_shelters, delimiter=';'):
         lambda x: partial_match(x, shelters))
 
     # Merge the two dataframes based on the merge key
-    merged_data = pd.merge(data, shelters, left_on='merge_key', 
+    merged_data = pd.merge(data, shelters, left_on='merge_key',
                            right_index=True, how='left')
 
     # Fill missing descriptions with a default text

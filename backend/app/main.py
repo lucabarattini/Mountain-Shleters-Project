@@ -17,7 +17,6 @@ import os
 import subprocess
 
 app = FastAPI()
-
 @app.get("/")
 def read_root():
     """Return a JSON message indicating the backend service status."""
@@ -26,7 +25,6 @@ def read_root():
 
 # Google API key
 GOOGLE_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"  
-
 def get_coordinates(address):
     """
     Convert an address to geographic coordinates using Google's Geocoding API.

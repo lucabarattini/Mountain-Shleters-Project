@@ -5,9 +5,11 @@ from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 
+
 def scrape_shelter_urls(test_mode=False):
     """
-    Scrapes shelter URLs from a website. If test_mode is True, only the first 20 URLs are scraped.
+    Scrapes shelter URLs from a website. If test_mode is True,
+    only the first 20 URLs are scraped.
     """
     cache_file = "backend/app/urls_cache.txt"
 
@@ -23,7 +25,8 @@ def scrape_shelter_urls(test_mode=False):
     soup = BeautifulSoup(response.content, 'html.parser')
 
     # Find total number of pages to scrape
-    total_pages = int(soup.find_all('a', class_='page-numbers')[-2].text) if not test_mode else 1
+    total_pages = int(soup.find_all('a', class_='page-numbers')
+                      [-2].text) if not test_mode else 1
 
     # Iterate over each page and scrape URLs
     for page in tqdm(range(1, total_pages + 1), desc="Scraping Pages"):
@@ -47,6 +50,7 @@ def scrape_shelter_urls(test_mode=False):
 
     return urls
 
+
 def scrape_shelter_details(url):
     """
     Scrapes details of a shelter from its URL.
@@ -69,11 +73,13 @@ def scrape_shelter_details(url):
 
         # Extract shelter name
         name_tag = soup.find('h3', style="margin-top: 25px")
-        details['Name'] = name_tag.text.strip() if name_tag else 'Name not found'
+        details['Name'] = name_tag.text.strip(
+        ) if name_tag else 'Name not found'
 
         # Extract shelter description
         description_tag = soup.find('div', class_='descrizione-lunga')
-        details['Description'] = description_tag.text.strip() if description_tag else 'Description not found'
+        details['Description'] = description_tag.text.strip(
+        ) if description_tag else 'Description not found'
 
         # Extract region information
         details['Region'] = 'Region not found'
@@ -83,7 +89,8 @@ def scrape_shelter_details(url):
                 break
 
         # Extract coordinates
-        details['Latitude'], details['Longitude'] = 'Coords not found', 'Coords not found'
+        details['Latitude'] = 'Coords not found'
+        details['Longitude'] = 'Coords not found'
         for td in soup.find_all('td'):
             if 'Lat:' in td.text and 'Long:' in td.text:
                 coords = td.get_text(separator="|").split('|')
@@ -104,6 +111,7 @@ def scrape_shelter_details(url):
 
     return details
 
+
 def process_url(url):
     """
     Processes a single shelter URL to scrape details.
@@ -121,6 +129,7 @@ def process_url(url):
         return details
     return None
 
+
 def main():
     """
     Main function to scrape shelter URLs and details.
@@ -133,10 +142,13 @@ def main():
     all_shelter_details = []
     with ThreadPoolExecutor(max_workers=10) as executor:
         # Submitting URLs for parallel processing
-        future_to_url = {executor.submit(process_url, url): url for url in all_shelter_urls}
+        future_to_url = {executor.submit(
+            process_url, url): url for url in all_shelter_urls}
 
         # Collecting results with progress tracking
-        for future in tqdm(as_completed(future_to_url), total=len(all_shelter_urls), desc="Scraping Shelter Details"):
+        for future in tqdm(as_completed(future_to_url),
+                           total=len(all_shelter_urls),
+                           desc="Scraping Shelter Details"):
             result = future.result()
             if result:
                 all_shelter_details.append(result)
@@ -146,6 +158,7 @@ def main():
     df = pd.DataFrame(all_shelter_details)
     df.to_csv(csv_file, index=False)
     print(f"CSV file created at {csv_file} with shelter details.")
+
 
 if __name__ == "__main__":
     main()

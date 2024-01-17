@@ -84,13 +84,5 @@ def project_description():
 
 
 if __name__ == '__main__':
-<< << << < Updated upstream
-<< << << < Updated upstream
-print("🌈 Running on http://localhost:8080")
-app.run(host='0.0.0.0', port=80, debug=False)
-== == == =
-app.run(host='0.0.0.0', port=80, debug=True)
->>>>>> > Stashed changes
-== == == =
-app.run(host='0.0.0.0', port=80, debug=True)
->>>>>> > Stashed changes
+    print("🌈 Running on http://localhost:8080")
+    app.run(host='0.0.0.0', port=80, debug=False)

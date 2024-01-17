@@ -5,7 +5,7 @@ This module defines a simple Flask application that serves
 as the frontend for the project.
 """
 
-from flask import Flask, render_template, reques
+from flask import Flask, render_template, request
 import requests
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
